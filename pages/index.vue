@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div v-if="pending">Loading ...</div>
+  <div v-else>
     <nuxt-link class="btn btn-primary" to="/test">Test</nuxt-link>
     <div class="row mb-3 d-sm-block d-none">
       <div class="col-12">
@@ -10,7 +11,7 @@
     </div>
     <div class="row mb-5">
       <div class="col-lg-8 mb-lg-0 mb-4">
-        <home-main-slider />
+        <home-main-slider :data="data.data.sliders" />
       </div>
       <div class="col-lg-4">
         <div class="row">
@@ -1915,8 +1916,17 @@
   </div>
 </template>
 
-<script>
-export default {};
+<script setup lang="ts">
+import { HomeDataDto } from "~~/models/home/homeDataDto";
+import { FetchApi } from "~~/utilities/CustomFechApi";
+
+const { data, pending } = useLazyAsyncData(
+  "main-page",
+  () => FetchApi<HomeDataDto>("/Utilities/MainPageData"),
+  {
+    initialCache: true,
+  }
+);
 </script>
 
 <style>
