@@ -31,3 +31,7 @@
     transform: translateY(-20px);
     opacity: 0;
 }
+
+.carousel__viewport {
+    border-radius: 15px;
+}

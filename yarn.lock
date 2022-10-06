@@ -4149,6 +4149,11 @@ vue-router@^4.1.5:
   dependencies:
     "@vue/devtools-api" "^6.1.4"
 
+vue3-carousel@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/vue3-carousel/-/vue3-carousel-0.2.0.tgz#3277d578b7505666004efdf865f96e2d68d31d22"
+  integrity sha512-nHfWRdDHzuwO42vq1ks3H6Vw/3IAIh8o3nscjWVZC2++16nN03yGIOVhGH7IXeOEYouo7xs2K82j8HYkSRuYyA==
+
 vue@^3.2.39:
   version "3.2.40"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.2.40.tgz#23f387f6f9b3a0767938db6751e4fb5900f0ee34"

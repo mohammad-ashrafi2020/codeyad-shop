@@ -13,6 +13,7 @@
   "dependencies": {
     "@pinia/nuxt": "^0.4.2",
     "vee-validate": "^4.6.10",
+    "vue3-carousel": "^0.2.0",
     "yup": "^0.32.11"
   }
 }
