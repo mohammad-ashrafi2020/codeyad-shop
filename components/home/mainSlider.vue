@@ -44,7 +44,7 @@
 </template>
 
 <script setup lang="ts">
-import { Carousel, Navigation, Pagination, Slide } from "vue3-carousel";
+import { Carousel, Slide } from "vue3-carousel";
 import "vue3-carousel/dist/carousel.css";
 import { SliderDto } from "~~/models/home/homeDataDto";
 import { GetSliderImage } from "~~/utilities/ImageUrls";
