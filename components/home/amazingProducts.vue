@@ -19,40 +19,23 @@
                         <div class="col-lg-9">
                             <Carousel dir="rtl" v-model="currentSlide" :itemsToShow="4" pauseAutoplayOnHover
                                 v-if="isShow">
-                                <Slide class="swiper-slide main-swiper-slide">
-                                    <ProductCard :product="{} as ProductCardDto" />
+                                <Slide class="swiper-slide main-swiper-slide" v-for="item in products">
+                                    <ProductCard :product="item" />
                                 </Slide>
-                                <Slide class="swiper-slide main-swiper-slide">
-                                    <ProductCard :product="{} as ProductCardDto" />
-                                </Slide>
-                                <Slide class="swiper-slide main-swiper-slide">
-                                    <ProductCard :product="{} as ProductCardDto" />
-                                </Slide>
-                                <Slide class="swiper-slide main-swiper-slide">
-                                    <ProductCard :product="{} as ProductCardDto" />
-                                </Slide>
-                                <Slide class="swiper-slide main-swiper-slide">
-                                    <ProductCard :product="{} as ProductCardDto" />
-                                </Slide>
-                                <Slide class="swiper-slide main-swiper-slide">
-                                    <ProductCard :product="{} as ProductCardDto" />
-                                </Slide>
-                                <Slide class="swiper-slide main-swiper-slide">
-                                    <ProductCard :product="{} as ProductCardDto" />
-                                </Slide>
-                                <Slide class="swiper-slide main-swiper-slide">
-                                    <ProductCard :product="{} as ProductCardDto" />
-                                </Slide>
-                                <template #addons="{ slidesCount }">
+                                <template #addons="{ slidesCount }" v-if="slidesCount>4">
                                     <div class="slider__navigation">
-                                        <div class="swiper-button-prev" @click="currentSlide += 1">
+                                        <div v-if="currentSlide>=slidesCount-2" class="swiper-button-next disabled">
                                         </div>
-                                        <div class="swiper-button-next" @click="currentSlide -= 1"></div>
+                                        <div v-else class="swiper-button-next" @click="currentSlide += 1">
+                                        </div>
+                                        <div v-if="currentSlide<= 1" class="swiper-button-prev disabled"></div>
+                                        <div v-else :class="['swiper-button-prev',
+                                        {'disabled': currentSlide<= 1 }]" @click="currentSlide -= 1"></div>
+
                                     </div>
-                                    <div class="slider__pagination" v-if="Number((slidesCount / 4).toFixed()) > 1">
-                                        <label :class="{ active: item == currentSlide + 1 }"
-                                            v-for="item in Number((slidesCount / 4).toFixed())" :key="item"
-                                            @click="currentSlide = item - 1"></label>
+                                    <div class="slider__pagination" v-if="slides > 1">
+                                        <label v-for="item in slides" :class="{ active: item ==  activeSlide}"
+                                            :key="item" @click="changeSlide(item)"></label>
                                     </div>
                                 </template>
                             </Carousel>
@@ -69,18 +52,35 @@ import { Carousel, Slide } from "vue3-carousel";
 
 import { ProductCardDto } from '~~/models/ProductCard';
 
-defineProps<{
+const props = defineProps<{
     products: ProductCardDto[]
 }>();
 
-const currentSlide = ref(0);
+const currentSlide = ref(1);
 const isShow = ref(false);
+const slides = Number((props.products.length / 4).toFixed());
+const activeSlide = ref(1);
 
 onMounted(() => {
     setTimeout(() => {
         isShow.value = true;
     }, 500);
 });
+const changeSlide = (slide: number) => {
+    if (slide == 1) {
+        currentSlide.value = 1;
+        return;
+    }
+    currentSlide.value = slide * 4;
+}
+watch(currentSlide, (val) => {
+    if (val == 1) {
+        activeSlide.value = 1;
+        return;
+    }
+    activeSlide.value = Math.ceil(val / 4);
+})
+
 </script>
 
 <style scoped>
@@ -90,12 +90,7 @@ onMounted(() => {
     font-size: 24px;
     font-weight: bold;
 }
-.swiper-button-prev{
-    left: 1rem;
-}
-.swiper-button-next{
-    right: 1rem;
-}
+
 .swiper-button-prev.disabled,
 .swiper-button-next.disabled {
     opacity: .5;
@@ -110,6 +105,18 @@ onMounted(() => {
     border-radius: 50%;
     -webkit-box-shadow: 0 0 30px rgb(0 0 0 / 8%);
     box-shadow: 0 0 30px rgb(0 0 0 / 8%);
+}
+
+.swiper-button-next {
+    left: 1.5rem !important;
+    right: unset;
+    transform: rotate(180deg);
+}
+
+.swiper-button-prev {
+    left: unset;
+    right: 1.5rem !important;
+    transform: rotate(180deg);
 }
 
 .slider__pagination {
