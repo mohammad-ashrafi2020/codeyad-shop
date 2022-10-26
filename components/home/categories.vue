@@ -3,7 +3,7 @@
         <div class="ui-box-title">دسته بندی محصولات</div>
         <div class="ui-box-content">
             <div class="categories-container">
-                <base-carousel :slideClass="'swiper-slide'" :breakpoints="breakpoints" :items="utilStore.categories" >
+                <base-carousel :slideClass="'category-slide'" :breakpoints="breakpoints" :items="utilStore.categories" >
                     <template #item="{item}">
                         <div class="category-item">
                             <nuxt-link to="/">
@@ -21,9 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { CategoryDto } from '~~/models/categories/categoryDto';
 import { useUtilStore } from '~~/stores/utilStore';
-import { Carousel, Slide } from "vue3-carousel";
 import { GetCategoryImage } from '~~/utilities/ImageUrls';
 
 
@@ -48,33 +46,6 @@ const breakpoints = ref({
         itemsToShow: 2,
     },
 });
-
-
-const currentSlide = ref(1);
-const isShow = ref(false);
-const slides = Number((utilStore.categories.length / 7).toFixed());
-const activeSlide = ref(1);
-
-onMounted(() => {
-    setTimeout(() => {
-        isShow.value = true;
-    }, 500);
-});
-const changeSlide = (slide: number) => {
-    if (slide == 1) {
-        currentSlide.value = 1;
-        return;
-    }
-    currentSlide.value = slide * 4;
-}
-watch(currentSlide, (val) => {
-    if (val == 1) {
-        activeSlide.value = 1;
-        return;
-    }
-    activeSlide.value = Math.ceil(val / 4);
-})
-
 </script>
 
 

@@ -35,3 +35,7 @@
 .carousel__viewport {
     border-radius: 15px;
 }
+.category-slide {
+    padding: 0 !important;
+    padding-left: 10px !important;
+}

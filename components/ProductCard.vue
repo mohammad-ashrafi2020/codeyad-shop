@@ -11,10 +11,10 @@
             </h2>
             <div class="product-price fa-num">
                 <div class="d-flex align-items-center" v-if="product.discountPercentage>=1">
-                    <del class="price-old">{{product.price}}</del>
+                    <del class="price-old">{{splitNumber(product.price)}}</del>
                     <span class="discount ms-2">%{{product.discountPercentage}}</span>
                 </div>
-                <span class="price-now">{{product.totalPrice}}
+                <span class="price-now">{{splitNumber(product.totalPrice)}}
                     <span class="currency">تومان</span></span>
             </div>
         </div>
@@ -51,6 +51,7 @@
 <script setup lang="ts">
 import { ProductCardDto } from '~~/models/ProductCard';
 import { GetProductImage } from '~~/utilities/ImageUrls';
+import { splitNumber } from '~~/utilities/numberUtils';
 
 defineProps<{
     product: ProductCardDto

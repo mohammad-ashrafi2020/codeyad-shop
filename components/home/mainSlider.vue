@@ -62,6 +62,11 @@ onMounted(() => {
 </script>
 
 <style scoped>
+@media screen and (max-width:990px) {
+  .carousel__item img {
+    height : auto  !important;
+  }
+}
 .carousel__item {
   border-radius: 15px;
   width: 100%;
