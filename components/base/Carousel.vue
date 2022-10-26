@@ -1,15 +1,18 @@
 <template>
-    <Carousel dir="rtl" :itemsToShow="itemsToShow" :breakpoints="breakpoints" v-model="currentSlide">
+    <Carousel dir="rtl"  :itemsToShow="itemsToShow" :breakpoints="breakpoints" v-model="currentSlide">
         <Slide :class="slideClass" v-for="(item,index) in items" :key="index">
             <slot name="item" :item="item" :index="index" />
         </Slide>
         <template #addons="{ slidesCount }">
-            <div class="slider__navigation" v-if="slidesCount>7">
-                <div v-if="currentSlide>=slidesCount-(itemToShoow-2)" class="swiper-button-next disabled">
+            <div class="slider__navigation" v-if="slidesCount>itemToShoow">
+                <div v-if="currentSlide==slidesCount|| (currentSlide>=slidesCount-(itemToShoow-3))" 
+                    class="swiper-button-next disabled">
                 </div>
+
                 <div v-else class="swiper-button-next" @click="nextSlide">
                 </div>
-                <div v-if="currentSlide<= 1" class="swiper-button-prev disabled"></div>
+
+                <div v-if="currentSlide<= 0" class="swiper-button-prev disabled"></div>
                 <div v-else class="swiper-button-prev" @click="prevSlide"></div>
 
             </div>
@@ -24,11 +27,12 @@
 <script setup lang="ts">
 import { Carousel, Slide } from "vue3-carousel";
 
-const { items, breakpoints = {}, slideClass = "", itemsToShow = 1 } = defineProps<{
+const { items, breakpoints={}, itemsToShow = 1, slideClass="", baseClass="" } = defineProps<{
     items: any[],
     breakpoints?: Object,
     itemsToShow?: number,
-    slideClass?: string
+    slideClass?: string,
+    baseClass?: string
 }>();
 
 const itemToShoow = ref(itemsToShow);
@@ -36,8 +40,6 @@ const currentSlide = ref(1);
 const isShow = ref(false);
 const slides = computed(() => Math.ceil(Number((items.length / itemToShoow.value))));
 const activeSlide = ref(1);
-
-
 
 onMounted(() => {
     setTimeout(() => {
@@ -49,14 +51,15 @@ onMounted(() => {
     }
     window.addEventListener('resize', onResize);
 });
+
 onUnmounted(() => {
     window.removeEventListener('resize', onResize);
 });
 const nextSlide = () => {
-    currentSlide.value += 2;
+    currentSlide.value += 1;
 }
 const prevSlide = () => {
-    currentSlide.value -= 2
+    currentSlide.value -= 1
 }
 const changeSlide = (slide: number) => {
     if (slide == 1) {
@@ -81,6 +84,7 @@ watch(currentSlide, (val) => {
 const onResize = () => {
     getItemShow();
 }
+
 function getItemShow(): void {
     const breakpointsArray: number[] = Object.keys(breakpoints)
         .map((key: string): number => Number(key))
@@ -99,14 +103,10 @@ function getItemShow(): void {
     })
     itemToShoow.value = itmeToShop['itemsToShow'];
 }
+
 </script>
 
 <style scoped>
-
-.carousel__slide {
-    padding: 0;
-    padding-left: 10px;
-}
 .swiper-button-prev::after,
 .swiper-button-next:after {
     color: black;
