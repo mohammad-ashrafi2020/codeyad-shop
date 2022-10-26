@@ -4,9 +4,9 @@ export default defineNuxtConfig({
   build: {
     transpile: ["vue-agile"],
   },
-  vite: {
-    server: {
-      proxy: { "/api": "http://shop-api.codeyad-project.ir/" },
-    },
-  },
+  // vite: {
+  //   server: {
+  //     proxy: { "/api": "http://shop-api.codeyad-project.ir/" },
+  //   },
+  // },
 });
