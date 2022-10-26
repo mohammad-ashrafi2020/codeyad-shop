@@ -9,7 +9,7 @@
         </div>
     </div>
     <div v-else-if="position==BannerPosition.سمت_چپ_اسلایدر" class="row">
-        <div class="col-lg-12 col-6 mb-lg-3" v-for="item in filterdBanners.slice(0,2)">
+        <div class="col-lg-12 col-6 mb-lg-3" v-for="(item,index) in filterdBanners.slice(0,2)" :key="index">
             <div class="banner-img banner-side-main-slider bg-position-right">
                 <a :href="item.link"
                     :style="{height: '220px','background-image': `url(${GetBannerImage(filterdBanners[0].imageName)})`}">
@@ -19,7 +19,7 @@
         </div>
     </div>
     <template v-else-if="position==BannerPosition.زیر_اسلایدر">
-        <div class="col-md-6 mb-lg-0 mb-3" v-for="item in filterdBanners.slice(0,2)">
+        <div class="col-md-6 mb-lg-0 mb-3" v-for="(item,index) in filterdBanners.slice(0,2)" :key="index">
             <div class="banner-img">
                 <a :href="item.link">
                     <base-image :src=" GetBannerImage(filterdBanners[0].imageName)" alt="banner" />
@@ -28,7 +28,7 @@
         </div>
     </template>
     <template v-if="position==BannerPosition.وسط_صفحه">
-        <div class="col-md-3 col-6 mb-lg-0 mb-3" v-for="item in filterdBanners.slice(0,4)">
+        <div class="col-md-3 col-6 mb-lg-0 mb-3" v-for="(item,index) in filterdBanners.slice(0,4)" :key="index">
             <div class="banner-img">
                 <a :href="item.link">
                     <base-image :src=" GetBannerImage(filterdBanners[0].imageName)" alt="banner" />
