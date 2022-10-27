@@ -23,5 +23,6 @@ export const useUtilStore = defineStore("util", () => {
       categories.value=test;
     }
   };
+  
   return { categories, setCategories };
 });

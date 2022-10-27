@@ -6,12 +6,17 @@ import {
   ProductFilterResult,
 } from "~~/models/search/ProductSearchResultDto";
 import { FetchApi } from "~~/utilities/CustomFechApi";
+import { RemoveEmptyProps } from "~~/utilities/objectutils";
 
 export const getProductByFilter = (
   filterParams: ProductFilterParams
 ): Promise<ApiResponse<ProductFilterResult>> => {
-  return FetchApi("/product/shop", {
-    body: filterParams,
+
+  RemoveEmptyProps(filterParams);
+
+  console.log(filterParams)
+  return FetchApi(`/product/shop`, {
     method: "Get",
+    params:filterParams
   });
 };
