@@ -7,14 +7,14 @@
         </div>
         <div class="product-card-body">
             <h2 class="product-title">
-                <nuxt-link to="/">{{product.title}}</nuxt-link>
+                <nuxt-link to="/">{{ product.title }}</nuxt-link>
             </h2>
             <div class="product-price fa-num">
-                <div class="d-flex align-items-center" v-if="product.discountPercentage>=1">
-                    <del class="price-old">{{splitNumber(product.price)}}</del>
-                    <span class="discount ms-2">%{{product.discountPercentage}}</span>
+                <div class="d-flex align-items-center" v-if="product.discountPercentage >= 1">
+                    <del class="price-old">{{ splitNumber(product.price) }}</del>
+                    <span class="discount ms-2">%{{ product.discountPercentage }}</span>
                 </div>
-                <span class="price-now">{{splitNumber(product.totalPrice)}}
+                <span class="price-now">{{ splitNumber(product.totalPrice) }}
                     <span class="currency">تومان</span></span>
             </div>
         </div>
@@ -41,8 +41,8 @@
                 </div>
                 <div class="product-rating fa-num">
                     <i class="ri-star-fill star"></i>
-                    <strong>{{product.rate}}</strong>
-                    <span>({{product.commentCount}})</span>
+                    <strong>{{ product.rate }}</strong>
+                    <span>({{ product.commentCount }})</span>
                 </div>
             </div>
         </div>
@@ -54,6 +54,6 @@ import { GetProductImage } from '~~/utilities/ImageUrls';
 import { splitNumber } from '~~/utilities/numberUtils';
 
 defineProps<{
-    product: ProductCardDto
+    product: ProductCardDto,
 }>();
 </script>

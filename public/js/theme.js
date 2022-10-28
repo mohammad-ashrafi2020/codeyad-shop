@@ -370,31 +370,7 @@
 
 
 
-  /*====== ShopView ======*/
-  SCRIPT.ShopView = function () {
-    $(".btn-list-view").on("click", function () {
-      $(".listing-products-content .product-card-container").removeClass(
-        "col-xl-3 col-lg-4 col-md-6 col-sm-6"
-      );
-      $(".listing-products-content .product-card-container").addClass(
-        "col-lg-6 col-md-12 col-sm-6"
-      );
-      $(
-        ".listing-products-content .product-card-container .product-card"
-      ).addClass("product-card-horizontal");
-    });
-    $(".btn-grid-view").on("click", function () {
-      $(".listing-products-content .product-card-container").removeClass(
-        "col-lg-6 col-md-12 col-sm-6"
-      );
-      $(".listing-products-content .product-card-container").addClass(
-        "col-xl-3 col-lg-4 col-md-6 col-sm-6"
-      );
-      $(
-        ".listing-products-content .product-card-container .product-card"
-      ).removeClass("product-card-horizontal");
-    });
-  };
+
   /* end ShopView ======*/
 
   /*====== Form ======*/
@@ -814,7 +790,6 @@
       SCRIPT.Countdown(),
       SCRIPT.Slider(),
       SCRIPT.SimpleBar(),
-      SCRIPT.ShopView(),
       SCRIPT.Zoom(),
       SCRIPT.Form(),
       SCRIPT.Quantity(),

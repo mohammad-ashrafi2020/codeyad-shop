@@ -2,7 +2,6 @@
     <div class="col-xl-3 col-lg-4 col-md-5 responsive-sidebar">
         <div class="ui-sticky ui-sticky-top">
             <div class="ui-box sidebar-widgets">
-                <!-- start of widget -->
                 <div class="widget p-0 mb-3">
                     <div class="widget-content widget--free-shipping">
                         <div class="free-shipping--detail">
@@ -35,16 +34,13 @@
                 <div class="widget mb-3">
                     <div class="widget-title">جستجو در نتایج:</div>
                     <div class="widget-content widget--search">
-                        <form action="#">
-                            <div class="form-element-row">
-                                <input type="text" name="s" class="form-control" placeholder="نام محصول یا…">
-                                <i class="ri-search-line icon"></i>
-                            </div>
-                        </form>
+                        <div class="form-element-row">
+                            <input v-model="searchValue" type="text" @keypress.enter="search" class="form-control"
+                                placeholder="نام محصول یا…">
+                            <i @keypress.enter="search" class="ri-search-line icon"></i>
+                        </div>
                     </div>
                 </div>
-                <!-- end of widget -->
-                <!-- start of widget -->
                 <div class="widget widget-collapse mb-3">
                     <div class="widget-title widget-title--collapse-btn" data-bs-toggle="collapse"
                         data-bs-target="#collapseBrandFilter" aria-expanded="false" aria-controls="collapseBrandFilter"
@@ -204,8 +200,6 @@
                         </form>
                     </div>
                 </div>
-                <!-- end of widget -->
-                <!-- start of widget -->
                 <div class="widget py-1 mb-3">
                     <div class="widget-content widget--filter-switcher">
                         <div class="d-flex border-bottom pb-1 mb-2">
@@ -221,8 +215,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- end of widget -->
-                <!-- start of widget -->
                 <div class="widget py-1 mb-3">
                     <div class="widget-content widget--filter-switcher">
                         <div class="form-check form-switch mb-0">
@@ -232,8 +224,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- end of widget -->
-                <!-- start of widget -->
                 <div class="widget py-1 mb-3">
                     <div class="widget-content widget--filter-switcher">
                         <div class="form-check form-switch mb-0">
@@ -243,8 +233,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- end of widget -->
-                <!-- start of widget -->
                 <div class="widget widget-collapse mb-3">
                     <div class="widget-title widget-title--collapse-btn" data-bs-toggle="collapse"
                         data-bs-target="#collapseColorFilter" aria-expanded="false" aria-controls="collapseColorFilter"
@@ -415,58 +403,12 @@
                         </form>
                     </div>
                 </div>
-                <!-- end of widget -->
-                <!-- start of widget -->
                 <div class="widget widget-collapse">
                     <div class="widget-title widget-title--collapse-btn" data-bs-toggle="collapse"
                         data-bs-target="#collapsePriceFilter" aria-expanded="false" aria-controls="collapsePriceFilter"
                         role="button">محدوده قیمت</div>
                     <div class="widget-content widget--search fa-num collapse" id="collapsePriceFilter">
-                        <form action="#" class="pt-2">
-                            <div class="filter-price">
-                                <div class="filter-slider">
-                                    <div id="slider-non-linear-step"
-                                        class="price-slider noUi-target noUi-rtl noUi-horizontal">
-                                        <div class="noUi-base">
-                                            <div class="noUi-connects">
-                                                <div class="noUi-connect"
-                                                    style="transform: translate(0%, 0px) scale(1, 1);"></div>
-                                            </div>
-                                            <div class="noUi-origin" style="transform: translate(0%, 0px); z-index: 5;">
-                                                <div class="noUi-handle noUi-handle-lower" data-handle="0" tabindex="0"
-                                                    role="slider" aria-orientation="horizontal" aria-valuemin="0.0"
-                                                    aria-valuemax="17700000.0" aria-valuenow="0.0" aria-valuetext="0">
-                                                    <div class="noUi-touch-area"></div>
-                                                </div>
-                                            </div>
-                                            <div class="noUi-origin"
-                                                style="transform: translate(-1000%, 0px); z-index: 4;">
-                                                <div class="noUi-handle noUi-handle-upper" data-handle="1" tabindex="0"
-                                                    role="slider" aria-orientation="horizontal" aria-valuemin="0.0"
-                                                    aria-valuemax="17700000.0" aria-valuenow="17700000.0"
-                                                    aria-valuetext="17,700,000">
-                                                    <div class="noUi-touch-area"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <ul class="filter-range mb-4">
-                                    <li>
-                                        <input type="text" data-value="0" value="0" name="price[min]" data-range="0"
-                                            class="js-slider-range-from" id="skip-value-lower" disabled>
-                                        <span>تومان</span>
-                                    </li>
-                                    <li class="label fw-bold">تا</li>
-                                    <li>
-                                        <input type="text" data-value="17700000" value="17700000" name="price[max]"
-                                            data-range="17700000" class="js-slider-range-to" id="skip-value-upper"
-                                            disabled>
-                                        <span>تومان</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </form>
+                       
                     </div>
                 </div>
             </div>
@@ -475,7 +417,26 @@
 </template>
 
 <script setup lang="ts">
+import { useSearch } from "~~/composables/useSearch";
 
+
+const router = useRouter();
+const searchUtil = useSearch();
+
+const searchValue = ref("");
+const search = () => {
+    var currentPath = router.currentRoute.value.path;
+    var queryParams = router.currentRoute.value.query;
+    router.push({
+        path: currentPath,
+        query: { ...queryParams, q: searchValue.value }
+    });
+
+}
+
+onMounted(() => {
+    searchValue.value = searchUtil.getFilterParams().search
+})
 </script>
 
 <style>
