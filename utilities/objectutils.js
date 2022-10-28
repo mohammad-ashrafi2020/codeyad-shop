@@ -7,3 +7,8 @@ export const RemoveEmptyProps = (object) => {
     }
   }
 };
+
+export const RangeNumber = (start, end) => {
+  const length = end - start + 1;
+  return Array.from({ length }, (_, i) => start + i);
+};

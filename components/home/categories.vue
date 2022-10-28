@@ -3,13 +3,13 @@
         <div class="ui-box-title">دسته بندی محصولات</div>
         <div class="ui-box-content">
             <div class="categories-container">
-                <base-carousel :slideClass="'category-slide'" :breakpoints="breakpoints" :items="utilStore.categories" >
-                    <template #item="{item}">
+                <base-carousel :slideClass="'category-slide'" :breakpoints="breakpoints" :items="utilStore.categories">
+                    <template #item="{ item }">
                         <div class="category-item">
-                            <nuxt-link to="/">
+                            <nuxt-link :to="`/search/category-${item.slug}`">
                                 <base-image :src="GetCategoryImage(item.imageName)" class="category-img"
                                     :alt="item.title" />
-                                <span class="category-title">{{item.title}}</span>
+                                <span class="category-title">{{ item.title }}</span>
                             </nuxt-link>
                         </div>
                     </template>
@@ -53,5 +53,4 @@ const breakpoints = ref({
 .category-item {
     width: 100%;
 }
-
 </style>

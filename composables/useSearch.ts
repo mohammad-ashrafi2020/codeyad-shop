@@ -8,7 +8,7 @@ import { getProductByFilter } from "~~/services/product.service";
 
 export const useSearch = () => {
   const route = useRoute();
-
+  const router = useRouter();
 
   const getFilterParams = (): ProductFilterParams => {
     const params = route.path.split("/");
@@ -29,13 +29,21 @@ export const useSearch = () => {
 
     return res;
   };
+  const changePageId = async (pageId: number) => {
+    var currentPath = route.path;
+    var queryParams = route.query;
+    await router.push({
+      path: currentPath,
+      query: { ...queryParams, pageId },
+    });
+  };
 
   const getProducts = (): Promise<ApiResponse<ProductFilterResult>> => {
     var params = getFilterParams();
-    return getProductByFilter(params)
+    return getProductByFilter(params);
   };
 
-  return { getFilterParams,getProducts };
+  return { getFilterParams, getProducts, changePageId };
 };
 
 function getBoolean(value): boolean {

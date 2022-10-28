@@ -1,8 +1,11 @@
 import { baseFilterParams } from "../base/baseFilterParams";
 import { baseFilterResult } from "../base/baseFilterResult";
+import { CategoryDto } from "../categories/categoryDto";
 import { ProductCardDto } from "../ProductCard";
 
-export interface ProductFilterResult extends baseFilterResult<ProductCardDto> {}
+export interface ProductFilterResult extends baseFilterResult<ProductCardDto> {
+  categoryDto: CategoryDto | null;
+}
 
 export interface ProductFilterParams extends baseFilterParams {
   categorySlug: string | undefined;
