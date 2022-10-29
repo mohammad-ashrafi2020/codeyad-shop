@@ -39,3 +39,7 @@
     padding: 0 !important;
     padding-left: 10px !important;
 }
+
+.pl-0{
+    padding-left: 0 !important;
+}

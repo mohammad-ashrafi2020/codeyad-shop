@@ -9,20 +9,9 @@ export const useUtilStore = defineStore("util", () => {
   const setCategories = async () => {
     if (categories.value.length == 0) {
       var res = await GetAllCategory();
-      // categories.value = res.data;
-      var test=[];
-
-      res.data.map(f=>{
-        test.push(f);
-        test.push(f);
-        test.push(f);
-        test.push(f);
-        test.push(f);
-      })
-
-      categories.value=test;
+      categories.value = res.data;
     }
   };
-  
+
   return { categories, setCategories };
 });
