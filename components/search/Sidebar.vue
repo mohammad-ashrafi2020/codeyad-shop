@@ -60,16 +60,17 @@
                 <div class="widget py-1 mb-3">
                     <div class="widget-content widget--filter-switcher">
                         <div class="form-check form-switch mb-0">
-                            <input class="form-check-input" type="checkbox" id="has_jet_delivery">
-                            <label class="form-check-label" for="has_jet_delivery">فقط ارسال
-                                فوری</label>
+                            <input v-model="justHasDiscount" value="true" class="form-check-input" type="checkbox"
+                                id="has_jet_delivery">
+                            <label class="form-check-label" for="has_jet_delivery">فقط محصولات تخفیف دار</label>
                         </div>
                     </div>
                 </div>
                 <div class="widget py-1 mb-3">
                     <div class="widget-content widget--filter-switcher">
                         <div class="form-check form-switch mb-0">
-                            <input class="form-check-input" type="checkbox" id="has_selling_stock">
+                            <input v-model="onlyAvailableProducts" value="true" class="form-check-input" type="checkbox"
+                                id="has_selling_stock">
                             <label class="form-check-label" for="has_selling_stock">فقط کالاهای
                                 موجود</label>
                         </div>
@@ -98,6 +99,10 @@ const router = useRouter();
 const searchUtil = useSearch();
 const utilStore = useUtilStore();
 const selectedFilter = searchUtil.getFilterParams();
+const onlyAvailableProducts = ref(false);
+const justHasDiscount = ref(false);
+
+
 
 const searchValue = ref("");
 const search = () => {
@@ -109,9 +114,27 @@ const search = () => {
     });
 
 }
-
 onMounted(() => {
-    searchValue.value = searchUtil.getFilterParams().search
+    searchValue.value = selectedFilter.search
+    onlyAvailableProducts.value = selectedFilter.onlyAvailableProducts;
+    justHasDiscount.value = selectedFilter.justHasDiscount;
+})
+
+watch(justHasDiscount, (val) => {
+    var currentPath = router.currentRoute.value.path;
+    var queryParams = router.currentRoute.value.query;
+    router.push({
+        path: currentPath,
+        query: { ...queryParams, justHasDiscount: val.toString() }
+    });
+})
+watch(onlyAvailableProducts, (val) => {
+    var currentPath = router.currentRoute.value.path;
+    var queryParams = router.currentRoute.value.query;
+    router.push({
+        path: currentPath,
+        query: { ...queryParams, onlyAvailableProducts: val.toString() }
+    });
 })
 </script>
 
