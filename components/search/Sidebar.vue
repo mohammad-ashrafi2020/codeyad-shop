@@ -17,8 +17,7 @@
                     <div class="widget-title">دسته‌بندی نتایج</div>
                     <div class="widget-content widget--category-results">
                         <ul>
-                            <li :class="['category--arrow-left'
-                            ]" v-for="item in utilStore.categories" :key="item.id">
+                            <li class="category--arrow-left" v-for="item in utilStore.categories" :key="item.id">
                                 <nuxt-link :class="{ current: item.slug == selectedFilter.categorySlug }"
                                     :to="`/search/category-${item.slug}`">{{ item.title }}</nuxt-link>
                                 <ul v-if="item.childs.length > 0">
@@ -125,7 +124,8 @@ onMounted(() => {
     font-weight: bolder !important;
     color: #2962ff !important;
 }
-.widget--category-results{
+
+.widget--category-results {
     max-height: 200px;
     overflow-y: auto;
 }
@@ -133,21 +133,21 @@ onMounted(() => {
 
 /* width */
 .widget--category-results::-webkit-scrollbar {
-  width: 5px;
+    width: 5px;
 }
 
 /* Track */
 .widget--category-results::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+    background: #f1f1f1;
 }
- 
+
 /* Handle */
 .widget--category-results::-webkit-scrollbar-thumb {
-  background: #888; 
+    background: #888;
 }
 
 /* Handle on hover */
 .widget--category-results::-webkit-scrollbar-thumb:hover {
-  background: #555; 
+    background: #555;
 }
 </style>
