@@ -82,7 +82,20 @@
                         data-bs-target="#collapsePriceFilter" aria-expanded="false" aria-controls="collapsePriceFilter"
                         role="button">محدوده قیمت</div>
                     <div class="widget-content widget--search fa-num collapse" id="collapsePriceFilter">
-
+                        <base-range-slider :max="17700000" v-model="filterPrice" @value-changed="priceChanged" />
+                        <ul class="filter-range mb-4">
+                            <li>
+                                <input type="text" :value="splitNumber(filterPrice[0])" class="js-slider-range-from"
+                                    disabled>
+                                <span>تومان</span>
+                            </li>
+                            <li class="label fw-bold">تا</li>
+                            <li>
+                                <input type="text" :value="splitNumber(filterPrice[1])" class="js-slider-range-to"
+                                    id="skip-value-upper" disabled>
+                                <span>تومان</span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -93,6 +106,7 @@
 <script setup lang="ts">
 import { useSearch } from "~~/composables/useSearch";
 import { useUtilStore } from "~~/stores/utilStore";
+import { splitNumber } from "~~/utilities/numberUtils";
 
 
 const router = useRouter();
@@ -101,8 +115,7 @@ const utilStore = useUtilStore();
 const selectedFilter = searchUtil.getFilterParams();
 const onlyAvailableProducts = ref(false);
 const justHasDiscount = ref(false);
-
-
+const filterPrice = ref(['0', '17700000']);
 
 const searchValue = ref("");
 const search = () => {
@@ -112,14 +125,15 @@ const search = () => {
         path: currentPath,
         query: { ...queryParams, q: searchValue.value }
     });
-
 }
+
 onMounted(() => {
     searchValue.value = selectedFilter.search
     onlyAvailableProducts.value = selectedFilter.onlyAvailableProducts;
     justHasDiscount.value = selectedFilter.justHasDiscount;
-})
+    filterPrice.value = [selectedFilter.startPrice, selectedFilter.endPrice]
 
+});
 watch(justHasDiscount, (val) => {
     var currentPath = router.currentRoute.value.path;
     var queryParams = router.currentRoute.value.query;
@@ -127,7 +141,8 @@ watch(justHasDiscount, (val) => {
         path: currentPath,
         query: { ...queryParams, justHasDiscount: val.toString() }
     });
-})
+});
+
 watch(onlyAvailableProducts, (val) => {
     var currentPath = router.currentRoute.value.path;
     var queryParams = router.currentRoute.value.query;
@@ -136,6 +151,15 @@ watch(onlyAvailableProducts, (val) => {
         query: { ...queryParams, onlyAvailableProducts: val.toString() }
     });
 })
+
+const priceChanged = () => {
+    var currentPath = router.currentRoute.value.path;
+    var queryParams = router.currentRoute.value.query;
+    router.push({
+        path: currentPath,
+        query: { ...queryParams, startPrice: filterPrice.value[0], endPrice: filterPrice.value[1] }
+    });
+}
 </script>
 
 <style scoded>

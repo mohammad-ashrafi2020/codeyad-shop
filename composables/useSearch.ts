@@ -25,6 +25,8 @@ export const useSearch = () => {
       searchOrderBy:
         //@ts-ignore
         (route.query.searchOrderBy as ProductSearchOrderBy) ?? null,
+      startPrice: (route.query.startPrice?.toString() ?? "0"),
+      endPrice: (route.query.endPrice?.toString() ?? "0"),
     } as ProductFilterParams;
 
     return res;

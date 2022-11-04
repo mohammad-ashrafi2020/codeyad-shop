@@ -5,6 +5,7 @@ import { ProductCardDto } from "../ProductCard";
 
 export interface ProductFilterResult extends baseFilterResult<ProductCardDto> {
   categoryDto: CategoryDto | null;
+  filterParams: ProductFilterParams;
 }
 
 export interface ProductFilterParams extends baseFilterParams {
@@ -13,6 +14,8 @@ export interface ProductFilterParams extends baseFilterParams {
   onlyAvailableProducts: boolean;
   justHasDiscount: boolean;
   searchOrderBy: ProductSearchOrderBy | null;
+  startPrice: string;
+  endPrice: string;
 }
 
 export enum ProductSearchOrderBy {

@@ -1,5 +1,9 @@
 <template>
     <div class="row">
+        <Head>
+            <Title v-if="searchUtil.getFilterParams().search">{{ searchUtil.getFilterParams().search }}</Title>
+            <Title v-else>جستوجوی محصولات</Title>
+        </Head>
         <search-sidebar />
         <div class="col-xl-9 col-lg-8 col-md-7">
             <search-breadcrumb :category="filterResult.data.categoryDto" />
@@ -64,6 +68,7 @@ const search = useSearch();
 
 var route = useRoute();
 const productShowType = ref(0);
+const searchUtil = useSearch();
 const { data: filterResult, refresh, pending } = await useAsyncData("search", () => search.getProducts(), {
     initialCache: false
 })
