@@ -1,13 +1,13 @@
 <template>
     <div class="product-card">
         <div class="product-thumbnail">
-            <nuxt-link to="/">
+            <nuxt-link :to="url">
                 <base-image :src="GetProductImage(product.imageName)" :alt="product.title" />
             </nuxt-link>
         </div>
         <div class="product-card-body">
             <h2 class="product-title">
-                <nuxt-link to="/">{{ product.title }}</nuxt-link>
+                <nuxt-link :to="url">{{ product.title }}</nuxt-link>
             </h2>
             <div class="product-price fa-num">
                 <div class="d-flex align-items-center" v-if="product.discountPercentage >= 1">
@@ -53,7 +53,9 @@ import { ProductCardDto } from '~~/models/ProductCard';
 import { GetProductImage } from '~~/utilities/ImageUrls';
 import { splitNumber } from '~~/utilities/numberUtils';
 
-defineProps<{
+const props = defineProps<{
     product: ProductCardDto,
 }>();
+
+const url = `/product/${props.product.slug}`;
 </script>
