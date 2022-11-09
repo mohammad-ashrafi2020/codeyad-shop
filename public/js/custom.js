@@ -13,3 +13,13 @@
     THEME.Example();
   });
 })(jQuery);
+
+function initZoom() {
+  $(".zoom-img").imagezoomsl({
+    zoomrange: [2.12, 12],
+    magnifiersize: [530, 340],
+    scrollspeedanimate: 10,
+    loopspeedanimate: 5,
+    cursorshadeborder: "10px solid black",
+  });
+}

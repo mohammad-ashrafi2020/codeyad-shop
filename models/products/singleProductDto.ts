@@ -3,7 +3,7 @@ import { SeoData } from "../SeoData";
 
 export interface SingleProductDto {
   productDto: ProductDto;
-  inventories: InventoryDto;
+  inventories: InventoryDto[];
 }
 
 export interface ProductDto {

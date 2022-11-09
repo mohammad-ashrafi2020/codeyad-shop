@@ -27,7 +27,7 @@
                 </li>
             </ol>
         </nav>
-        <product-main-detail :product-dto="result.data.productDto" />
+        <product-main-detail :product-dto="result.data.productDto" :inventories="result.data.inventories" />
     </div>
 </template>
 
@@ -35,10 +35,18 @@
 import { GetProductBySlug } from "~~/services/product.service";
 
 const route = useRoute();
-const { data: result } = await useAsyncData("single_product", () => GetProductBySlug(route.params.slug.toString()));
+const { data: result } = await useAsyncData("single_product", () => GetProductBySlug(route.params.slug.toString()), {
+    initialCache: false
+});
 
 
 
+
+onMounted(() => {
+    setTimeout(() => {
+        initZoom();
+    }, 500);
+})
 </script>
 
 <style>

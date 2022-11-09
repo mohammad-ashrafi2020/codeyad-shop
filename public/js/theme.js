@@ -354,19 +354,7 @@
   };
   /* end Simplebar ======*/
 
-  /*====== Zoom ======*/
-  SCRIPT.Zoom = function () {
-    if ($(window).width() > 768) {
-      $(".zoom-img").imagezoomsl({
-        zoomrange: [2.12, 12],
-        magnifiersize: [530, 340],
-        scrollspeedanimate: 10,
-        loopspeedanimate: 5,
-        cursorshadeborder: "10px solid black",
-      });
-    }
-  };
-  /* end Zoom ======*/
+
 
 
 
@@ -790,7 +778,6 @@
       SCRIPT.Countdown(),
       SCRIPT.Slider(),
       SCRIPT.SimpleBar(),
-      SCRIPT.Zoom(),
       SCRIPT.Form(),
       SCRIPT.Quantity(),
       SCRIPT.FilterPrice(),
