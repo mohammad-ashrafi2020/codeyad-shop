@@ -4,6 +4,10 @@ import { SeoData } from "../SeoData";
 export interface SingleProductDto {
   productDto: ProductDto;
   inventories: InventoryDto[];
+  commentsCount: number;
+  rate: string;
+  likePercentage: number;
+  likeCount: number;
 }
 
 export interface ProductDto {

@@ -4,3 +4,7 @@ export function splitNumber(value: number | string | null) {
   }
   return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+export function padTo2Digits(num: number) {
+  return num.toString().padStart(2, "00");
+}

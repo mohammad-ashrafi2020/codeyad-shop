@@ -38,7 +38,8 @@
                 </div>
                 <div class="product-user-suggestion mb-2">
                     <i class="ri-thumb-up-fill text-success me-1"></i>
-                    <span class="fs-7 me-2">۷۹٪ (۱۷۰ نفر) از خریداران، این کالا را پیشنهاد کرده
+                    <span class="fs-7 me-2">{{ singleProductDto.likePercentage }}٪
+                        ({{ splitNumber(singleProductDto.likeCount) }} نفر) از خریداران، این کالا را پیشنهاد کرده
                         اند.</span>
                     <span data-bs-toggle="tooltip" data-bs-placement="bottom"
                         title="خریداران کالا با انتخاب یکی از گزینه‌های پیشنهاد یا عدم پیشنهاد، تجربه خرید خود را با کاربران به اشتراک می‌گذارند."><i
@@ -47,13 +48,9 @@
                 <div class="product-user-meta fa-num mb-4">
                     <span class="product-users-rating">
                         <i class="ri-star-fill icon me-1"></i>
-                        <span class="fw-bold me-1">4.4</span>
-                        <span class="text-muted fs-7">(742)</span>
+                        <span class="fw-bold me-1">{{ singleProductDto.rate }}</span>
+                        <span class="text-muted fs-7">({{ splitNumber(singleProductDto.commentsCount) }})</span>
                     </span>
-                    <span class="divider"></span>
-                    <a href="#" class="link border-bottom-0 fs-7">۶۳۷ دیدگاه کاربران</a>
-                    <span class="divider"></span>
-                    <a href="#" class="link border-bottom-0 fs-7">۴۰۵ پرسش و پاسخ</a>
                 </div>
                 <base-show-more showText="بیشتر بخوانید" close-text="بستن"
                     v-if="productDto.specifications.length ?? 0 > 0">
@@ -174,12 +171,13 @@
 </template>
 
 <script setup lang="ts">
-import { InventoryDto, ProductDto } from "~~/models/products/singleProductDto";
+import { InventoryDto, ProductDto, SingleProductDto } from "~~/models/products/singleProductDto";
 import { GetProductGalleryImage, GetProductImage } from "~~/utilities/ImageUrls";
 import orderBy from "lodash/orderBy";
 import { splitNumber } from "~~/utilities/numberUtils";
 
 const props = defineProps<{
+    singleProductDto: SingleProductDto,
     productDto: ProductDto,
     inventories: InventoryDto[]
 }>();

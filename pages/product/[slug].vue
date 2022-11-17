@@ -27,9 +27,10 @@
                 </li>
             </ol>
         </nav>
-        <product-main-detail :product-dto="result.data.productDto" :inventories="result.data.inventories" />
+        <product-main-detail :product-dto="result.data.productDto" :single-product-dto="result.data"
+            :inventories="result.data.inventories" />
         <product-sellers :inventories="result.data.inventories" />
-        <product-detail :product-dto="result.data.productDto" :inventories="result.data.inventories" />
+        <product-detail :single-product-dto="result.data" />
     </div>
 </template>
 
