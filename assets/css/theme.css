@@ -4176,7 +4176,7 @@ body.loaded .product-card .product-thumbnail a::before {
   padding-right: 10px;
 }
 
-.mini-buy-box .product-details .product-title h1 {
+.mini-buy-box .product-details .product-title h2 {
   font-size: 14px;
   font-weight: 500;
   line-height: 25px;
