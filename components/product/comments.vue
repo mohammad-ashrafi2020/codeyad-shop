@@ -7,7 +7,6 @@
         <div class="row">
             <div class="col-xl-3 col-lg-4 col-md-5 mb-3">
                 <div class="ui-sticky ui-sticky-top pt-5 z-index-0">
-                    <!-- start of comments-sidebar -->
                     <div class="comments-sidebar">
                         <div class="comments-sidebar-rating">
                             <div class="comments-sidebar-rating-main me-2">{{
@@ -81,28 +80,17 @@
                             </div>
                         </div>
                         <div class="mb-2">دیدگاه خود را درباره این کالا بیان کنید</div>
-                        <button class="btn btn-block btn-outline-primary">افزودن
+                        <button @click="isOpenModal = true" class="btn btn-block btn-outline-primary">افزودن
                             دیدگاه</button>
                     </div>
                 </div>
             </div>
             <div class="col-xl-9 col-lg-8 col-md-7 pt-5">
-                <div class="filter-comments mb-4">
-                    <div class="filter-comments-title me-2">
-                        <i class="ri-list-settings-fill me-1"></i>
-                        <span>مرتب سازی دیدگاه ها بر اساس:</span>
-                    </div>
-                    <div class="filter-comments-options">
-                        <button class="filter-comments-option active">جدیدترین دیدگاه ها</button>
-                        <button class="filter-comments-option">مفیدترین دیدگاه ها</button>
-                        <button class="filter-comments-option">دیدگاه خریداران</button>
-                    </div>
-                </div>
                 <div class="comments">
                     <div class="comment" v-for="item in commentResult" :key="item.id">
                         <div class="comment-header">
                             <span>{{ item.userFullName }}</span>
-                            <span> | {{ getPersianDate(new Date(item.creationDate),"y/M/dd") }}</span>
+                            <span> | {{ getPersianDate(new Date(item.creationDate), "y/M/dd") }}</span>
                         </div>
                         <div class="comment-body">
                             <p v-text="item.text"></p>
@@ -119,6 +107,9 @@
                 </div>
             </div>
         </div>
+        <base-modal title="افزودن دیدگاه" v-model="isOpenModal">
+            <product-send-comment />
+        </base-modal>
     </div>
 </template>
 
@@ -137,7 +128,7 @@ const props = defineProps<{
 const commentResult: Ref<CommentDto[]> = ref([]);
 const rate = Number(props.singleProductDto.rate).toFixed(1);
 const rateIn100 = (parseFloat(rate) / 5) * 100;
-
+const isOpenModal = ref(false);
 onMounted(async () => {
     var res = await GetProductComments(props.singleProductDto.productDto.id);
     commentResult.value = res.data.data ?? [];
