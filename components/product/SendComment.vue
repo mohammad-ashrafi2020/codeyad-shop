@@ -1,6 +1,12 @@
 <template>
     <div class="row mt-5">
-        <div class="col-md-5 mb-md-0 mb-4">
+        <form @submit.prevent="sendComment" :validation-schema="validationSchema" class="col-md-5 mb-md-0 mb-4">
+            <div class="row comments-product-attributes">
+                <div class="col-md-12 text-center">
+                    <div class="comments-product-attributes-title">امتیاز شما به محصول</div>
+                    <input id="rateSlider" type="text" />
+                </div>
+            </div>
             <div class="add-comment-product">
                 <div class="form-element-row mb-3">
                     <label class="label">نقاط قوت</label>
@@ -49,14 +55,14 @@
                 </div>
                 <div class="form-element-row mb-3">
                     <label class="label">متن نظر شما (اجباری)</label>
-                    <textarea v-model="formData.text" rows="5" class="form-control"
+                    <textarea name="text" v-model="formData.text" rows="5" class="form-control"
                         placeholder="متن نظر خود را بنویسید.."></textarea>
                 </div>
                 <div class="text-end mb-3">
                     <button class="btn btn-primary">ثبت نظر <i class="ri-send-plane-fill ms-2"></i></button>
                 </div>
             </div>
-        </div>
+        </Form>
         <div class="col-md-7">
             <div class="fs-5 fw-bold text-dark mb-3">
                 دیگران را با نوشتن نظرات خود، برای انتخاب این محصول راهنمایی کنید.
@@ -83,20 +89,55 @@
 </template>
 
 <script setup lang="ts">
+import { Form } from "vee-validate";
 import { Ref } from "vue";
+import * as Yup from "yup"
+import { number } from "yup/lib/locale";
+import { SendCommentDto, UserRecommendedStatus } from "~~/models/comments/commentDto";
+import { AddComment } from "~~/services/comment.service";
+import { useAuthStore } from "~~/stores/authStore";
 
+const props = defineProps({
+    productId: {
+        type: Number,
+        required: true
+    }
+});
+const emits = defineEmits(['closeModal']);
 
 const advantage = ref(null);
 const disAdvantage = ref(null);
-
+const authStore = useAuthStore();
 const formData = reactive({
     text: "",
     advantage: [],
     disadvantage: [],
     rate: 0,
 });
+const validationSchema = Yup.object().shape({
+    name: Yup.string().required()
+})
+const sendComment = async () => {
+    const command = {
+        rate: getRateSliderValue(),
+        text: formData.text,
+        userId: authStore.currentUser.id,
+        productId: props.productId,
+        userRecommendedStatus: UserRecommendedStatus.مطمئن_نیستم,
+        advantages: " ",
+        disadvantages: ""
+    } as SendCommentDto;
 
 
+
+    var res = await AddComment(command);
+    if (res.isSuccess) {
+        emits("closeModal");
+        //Toast
+    } else {
+        //Toast
+    }
+}
 const AddAdvantage = () => {
     var text = advantage.value.value;
     if (text) {
@@ -117,6 +158,13 @@ const removeAdvantage = (index) => {
 const removeDisAdvantage = (index) => {
     formData.disadvantage.splice(index, 1);
 }
+
+onMounted(() => {
+    setTimeout(() => {
+        InitRateSlider();
+    }, 300
+    );
+})
 </script>
 
 <style>

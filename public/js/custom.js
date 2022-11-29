@@ -23,3 +23,14 @@ function initZoom() {
     cursorshadeborder: "10px solid black",
   });
 }
+function InitRateSlider() {
+  $("#rateSlider").bootstrapSlider({
+    ticks_labels: ["خیلی بد", "بد", "معمولی", "خوب", "عالی"],
+    ticks: [1, 2, 3, 4, 5],
+    max: 5,
+    min: 1,
+  });
+}
+function getRateSliderValue() {
+  return $("#rateSlider").bootstrapSlider("getValue");
+}

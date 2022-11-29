@@ -108,7 +108,7 @@
             </div>
         </div>
         <base-modal title="افزودن دیدگاه" v-model="isOpenModal">
-            <product-send-comment />
+            <product-send-comment :product-id="singleProductDto.productDto.id" @close-modal="isOpenModal = false" />
         </base-modal>
     </div>
 </template>

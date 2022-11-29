@@ -23,3 +23,13 @@ export enum UserRecommendedStatus {
   پیشنهاد_نمی_کنم = 1,
   مطمئن_نیستم = 2,
 }
+
+export interface SendCommentDto {
+  userId: number;
+  productId: number;
+  text: string;
+  disadvantages: string;
+  advantages: string;
+  userRecommendedStatus: UserRecommendedStatus;
+  rate: number;
+}
