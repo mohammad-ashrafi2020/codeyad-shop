@@ -1,10 +1,30 @@
 <template>
     <div class="row mt-5">
         <form @submit.prevent="sendComment" :validation-schema="validationSchema" class="col-md-5 mb-md-0 mb-4">
-            <div class="row comments-product-attributes">
+            <div class="row comments-product-attributes mb-5">
                 <div class="col-md-12 text-center">
                     <div class="comments-product-attributes-title">امتیاز شما به محصول</div>
                     <input id="rateSlider" type="text" />
+                </div>
+            </div>
+            <div class="user__recommended">
+                <div @click="formData.userRecommendedStatus = UserRecommendedStatus.پیشنهاد_میکنم"
+                    :class="['recomended__item', { active: formData.userRecommendedStatus == UserRecommendedStatus.پیشنهاد_میکنم }]">
+                    <icons-like
+                        :color="formData.userRecommendedStatus == UserRecommendedStatus.پیشنهاد_میکنم ? '#19bfd3' : '#a1a3a8'" />
+                    <p>پیشنهاد میکنم</p>
+                </div>
+                <div @click="formData.userRecommendedStatus = UserRecommendedStatus.مطمئن_نیستم"
+                    :class="['recomended__item', { active: formData.userRecommendedStatus == UserRecommendedStatus.مطمئن_نیستم }]">
+                    <icons-question :color="formData.userRecommendedStatus == UserRecommendedStatus.
+                    مطمئن_نیستم ? '#19bfd3' : '#a1a3a8'" />
+                    <p>مطمئن نیستم</p>
+                </div>
+                <div @click="formData.userRecommendedStatus = UserRecommendedStatus.پیشنهاد_نمی_کنم"
+                    :class="['recomended__item', { active: formData.userRecommendedStatus == UserRecommendedStatus.پیشنهاد_نمی_کنم }]">
+                    <icons-dis-like
+                        :color="formData.userRecommendedStatus == UserRecommendedStatus.پیشنهاد_نمی_کنم ? '#19bfd3' : '#a1a3a8'" />
+                    <p>پیشنهاد نمی‌کنم</p>
                 </div>
             </div>
             <div class="add-comment-product">
@@ -113,6 +133,7 @@ const formData = reactive({
     advantage: [],
     disadvantage: [],
     rate: 0,
+    userRecommendedStatus: UserRecommendedStatus.پیشنهاد_میکنم
 });
 const validationSchema = Yup.object().shape({
     name: Yup.string().required()
@@ -124,7 +145,7 @@ const sendComment = async () => {
         userId: authStore.currentUser.id,
         productId: props.productId,
         userRecommendedStatus: UserRecommendedStatus.مطمئن_نیستم,
-        advantages: " ",
+        advantages: "",
         disadvantages: ""
     } as SendCommentDto;
 
@@ -167,6 +188,35 @@ onMounted(() => {
 })
 </script>
 
-<style>
+<style scoped>
+.user__recommended {
+    display: flex;
+    gap: .5rem;
+    flex-direction: row;
+    margin-bottom: 1rem;
+    justify-content: center;
+}
 
+.recomended__item.active {
+    border-color: #19bfd3;
+    color: #19bfd3;
+
+}
+
+.recomended__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: .5rem;
+    color: #a1a3a8;
+    border: 1px solid #f0f0f1;
+    padding: 1rem .5rem;
+    font-size: 12px;
+    border-radius: .5rem;
+    cursor: pointer;
+}
+.recomended__item p{
+    margin: 0;
+}
 </style>

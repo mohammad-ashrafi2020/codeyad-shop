@@ -95,12 +95,14 @@
                         <div class="comment-body">
                             <p v-text="item.text"></p>
                             <ul>
-                                <li class="comment-evaluation positive" v-for="(passive, index) in item.advantages"
-                                    :key="index">
-                                    {{ passive }}
-                                </li>
-                                <li class="comment-evaluation negative" v-for="(negative, index) in item.disadvantages"
-                                    :key="index">{{ negative }}</li>
+                                <template v-for="(ad, index) in item.advantages" :key="index">
+                                    <li v-if="ad" class="comment-evaluation positive">
+                                        {{ ad }}
+                                    </li>
+                                </template>
+                                <template v-for="(disAd, index) in item.disadvantages" :key="index">
+                                    <li v-if="disAd" class="comment-evaluation negative">{{ disAd }}</li>
+                                </template>
                             </ul>
                         </div>
                     </div>
