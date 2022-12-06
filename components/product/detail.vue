@@ -15,10 +15,6 @@
                             <a class="nav-link" href="#scrollspyHeading4" data-scroll="scrollspyHeading4">دیدگاه
                                 کاربران</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#scrollspyHeading5" data-scroll="scrollspyHeading5">پرسش و
-                                پاسخ</a>
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -29,7 +25,7 @@
                     <h3 class="subtitle">{{ productDto.title }}</h3>
                 </div>
                 <base-show-more>
-                    <p v-html="productDto.description"></p>
+                    <div v-html="productDto.description"></div>
                 </base-show-more>
             </div>
             <div class="product-tab-content product-params tab-content border-bottom pb-2 mb-4" id="scrollspyHeading3">

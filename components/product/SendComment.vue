@@ -1,6 +1,6 @@
 <template>
     <div class="row mt-5">
-        <form @submit.prevent="sendComment" :validation-schema="validationSchema" class="col-md-5 mb-md-0 mb-4">
+        <div class="col-md-5 mb-md-0 mb-4">
             <div class="row comments-product-attributes mb-5">
                 <div class="col-md-12 text-center">
                     <div class="comments-product-attributes-title">امتیاز شما به محصول</div>
@@ -34,7 +34,7 @@
                         <div class="add-point-field">
                             <input ref="advantage" type="text" class="form-control" @keypress.enter="AddAdvantage"
                                 autocomplete="off">
-                            <base-button @click="AddAdvantage" class="btn-add-point js-icon-form-add">
+                            <base-button type="button" @click="AddAdvantage" class="btn-add-point js-icon-form-add">
                                 <i class="ri-add-line"></i>
                             </base-button>
                         </div>
@@ -45,7 +45,6 @@
                                 <button type="button" class="ui-dynamic-label-remove js-icon-form-remove"
                                     @click="removeAdvantage(index)">
                                 </button>
-                                <input type="hidden">
                             </div>
                         </div>
                     </div>
@@ -56,7 +55,7 @@
                         <div class="add-point-field">
                             <input type="text" class="form-control" @keypress.enter="AddDisAdvantage" ref="disAdvantage"
                                 autocomplete="off">
-                            <base-button @click="AddDisAdvantage" class="btn-add-point js-icon-form-add">
+                            <base-button type="button" @click="AddDisAdvantage" class="btn-add-point js-icon-form-add">
                                 <i class="ri-add-line"></i>
                             </base-button>
 
@@ -68,21 +67,22 @@
                                 <button type="button" @click="removeDisAdvantage(index)"
                                     class="ui-dynamic-label-remove js-icon-form-remove">
                                 </button>
-                                <input type="hidden" name="comment[advantages][]" value="dasdasd">
+
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="form-element-row mb-3">
-                    <label class="label">متن نظر شما (اجباری)</label>
-                    <textarea name="text" v-model="formData.text" rows="5" class="form-control"
-                        placeholder="متن نظر خود را بنویسید.."></textarea>
-                </div>
-                <div class="text-end mb-3">
-                    <button class="btn btn-primary">ثبت نظر <i class="ri-send-plane-fill ms-2"></i></button>
-                </div>
+
+                <base-text-area label="متن نظر شما (اجباری)" v-model="formData.text" name="text" />
+                <span class="text-danger" v-if="showerrorMessage">متن نظر را وارد کنید</span>
             </div>
-        </Form>
+            <div class="text-end mb-3 mt-3">
+                <base-button @click="sendComment" type="submit" :loading="loading">
+                    ثبت نظر <i class="ri-send-plane-fill ms-2"></i>
+                </base-button>
+
+            </div>
+        </div>
         <div class="col-md-7">
             <div class="fs-5 fw-bold text-dark mb-3">
                 دیگران را با نوشتن نظرات خود، برای انتخاب این محصول راهنمایی کنید.
@@ -125,9 +125,12 @@ const props = defineProps({
 });
 const emits = defineEmits(['closeModal']);
 
+const loading = ref(false);
 const advantage = ref(null);
 const disAdvantage = ref(null);
 const authStore = useAuthStore();
+const showerrorMessage = ref(false);
+
 const formData = reactive({
     text: "",
     advantage: [],
@@ -135,23 +138,26 @@ const formData = reactive({
     rate: 0,
     userRecommendedStatus: UserRecommendedStatus.پیشنهاد_میکنم
 });
-const validationSchema = Yup.object().shape({
-    name: Yup.string().required()
-})
+
 const sendComment = async () => {
+    if (!formData.text || formData.text == " ") {
+        showerrorMessage.value = true;
+        return;
+    }
     const command = {
         rate: getRateSliderValue(),
         text: formData.text,
         userId: authStore.currentUser.id,
         productId: props.productId,
-        userRecommendedStatus: UserRecommendedStatus.مطمئن_نیستم,
-        advantages: "",
-        disadvantages: ""
+        userRecommendedStatus: formData.userRecommendedStatus,
+        advantages: formData.advantage.toString().replaceAll(',', '-'),
+        disadvantages: formData.disadvantage.toString().replaceAll(',', '-')
     } as SendCommentDto;
 
-
-
+    loading.value = true;
     var res = await AddComment(command);
+    loading.value = false;
+
     if (res.isSuccess) {
         emits("closeModal");
         //Toast
@@ -159,6 +165,11 @@ const sendComment = async () => {
         //Toast
     }
 }
+watch(() => formData.text, (val) => {
+    if (val) {
+        showerrorMessage.value = false;
+    }
+})
 const AddAdvantage = () => {
     var text = advantage.value.value;
     if (text) {
@@ -216,7 +227,8 @@ onMounted(() => {
     border-radius: .5rem;
     cursor: pointer;
 }
-.recomended__item p{
+
+.recomended__item p {
     margin: 0;
 }
 </style>

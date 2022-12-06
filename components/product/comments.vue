@@ -110,7 +110,7 @@
             </div>
         </div>
         <base-modal title="افزودن دیدگاه" v-model="isOpenModal">
-            <product-send-comment :product-id="singleProductDto.productDto.id" @close-modal="isOpenModal = false" />
+            <product-send-comment :product-id="singleProductDto.productDto.id" @close-modal="refreshComments" />
         </base-modal>
     </div>
 </template>
@@ -132,10 +132,17 @@ const rate = Number(props.singleProductDto.rate).toFixed(1);
 const rateIn100 = (parseFloat(rate) / 5) * 100;
 const isOpenModal = ref(false);
 onMounted(async () => {
+    await getComments();
+})
+const refreshComments = async () => {
+    isOpenModal.value = false;
+    await getComments();
+}
+
+const getComments = async () => {
     var res = await GetProductComments(props.singleProductDto.productDto.id);
     commentResult.value = res.data.data ?? [];
-})
-
+}
 </script>
 
 <style>
