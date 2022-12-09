@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div  v-if="(result!=null)">
         <nav class="mb-5" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
@@ -38,9 +38,7 @@
 import { GetProductBySlug } from "~~/services/product.service";
 
 const route = useRoute();
-const { data: result } = await useAsyncData("single_product", () => GetProductBySlug(route.params.slug.toString()), {
-    initialCache: false
-});
+const { data: result } = await useAsyncData("single_product", () => GetProductBySlug(route.params.slug.toString()));
 
 
 

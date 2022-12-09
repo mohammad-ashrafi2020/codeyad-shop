@@ -1,5 +1,5 @@
 <template>
-  <div v-if="pending">Loading ...</div>
+  <div v-if="(pending || data == null)">Loading ...</div>
   <div v-else>
     <home-banner :banners="data.data.banners" :position="BannerPosition.بالای_اسلایدر" />
     <div class="row mb-5">
@@ -21,7 +21,7 @@
       <home-banner :banners="data.data.banners" :position="BannerPosition.وسط_صفحه" />
     </div>
     <!-- start of box -->
-  <home-latest-products :products="data.data.latestProduct"/>
+    <home-latest-products :products="data.data.latestProduct" />
   </div>
 </template>
 
@@ -31,10 +31,7 @@ import { FetchApi } from "~~/utilities/CustomFechApi";
 
 const { data, pending } = useAsyncData(
   "main-page",
-  () => FetchApi<HomeDataDto>("/Utilities/MainPageData"),
-  {
-    initialCache: true,
-  }
+  () => FetchApi<HomeDataDto>("/Utilities/MainPageData")
 );
 </script>
 

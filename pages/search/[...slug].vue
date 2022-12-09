@@ -1,12 +1,13 @@
 <template>
     <div class="row">
+
         <Head>
             <Title v-if="searchUtil.getFilterParams().search">{{ searchUtil.getFilterParams().search }}</Title>
             <Title v-else>جستوجوی محصولات</Title>
         </Head>
         <search-sidebar />
         <div class="col-xl-9 col-lg-8 col-md-7">
-            <search-breadcrumb :category="filterResult.data.categoryDto" />
+            <search-breadcrumb :category="filterResult!.data.categoryDto" />
             <button class="btn btn-primary mb-3 d-md-none toggle-responsive-sidebar">فیلتر پیشرفته
                 <i class="ri-equalizer-fill ms-1"></i></button>
             <div class="listing-products">
@@ -41,7 +42,7 @@
                             <div class="ui-box pt-3 pb-0 px-0 mb-4">
                                 <div class="ui-box-content">
                                     <div class="row mx-0">
-                                        <div v-for="item in filterResult.data.data" :key="item.id" :class="['product-card-container mb-4',
+                                        <div v-for="item in filterResult!.data.data" :key="item.id" :class="['product-card-container mb-4',
                                         { 'col-xl-3 col-lg-4 col-md-6 col-sm-6': productShowType == 0 },
                                         { 'col-lg-6 col-md-12 col-sm-6': productShowType == 1 }]">
                                             <product-card :class="{ 'product-card-horizontal': productShowType == 1 }"
@@ -52,7 +53,7 @@
                             </div>
                         </div>
                     </div>
-                    <search-pagination :pagination-data="filterResult.data" />
+                    <search-pagination :pagination-data="filterResult!.data" />
                 </div>
             </div>
             <div class="responsive-sidebar-overlay"></div>
@@ -69,9 +70,7 @@ const search = useSearch();
 var route = useRoute();
 const productShowType = ref(0);
 const searchUtil = useSearch();
-const { data: filterResult, refresh, pending } = await useAsyncData("search", () => search.getProducts(), {
-    initialCache: false
-})
+const { data: filterResult, refresh, pending } = await useAsyncData("search", () => search.getProducts())
 
 watch(() => route.query, () => {
     refresh();
