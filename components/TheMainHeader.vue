@@ -1,19 +1,5 @@
 <template>
   <header class="page-header d-md-block d-none">
-    <!-- start banner -->
-    <div class="alert banner-container alert-dismissible fade show" role="alert">
-      <nuxt-link to="/" class="banner-placement rounded-0" style="
-          background-image: url(/images/banner/017.jpg);
-          height: 60px;
-        "></nuxt-link>
-      <nuxt-link to="/auth/login" class="banner-placement rounded-0" style="
-          background-image: url(/images/banner/017.jpg);
-          height: 60px;
-        "></nuxt-link>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    <!-- end banner -->
-    <!-- start of page-header-top -->
     <div class="page-header--top">
       <div class="container">
         <div class="d-flex align-items-center justify-content-between">
@@ -132,56 +118,72 @@
               </a>
               <div class="user-option--dropdown user-option--dropdown-right">
                 <div class="profile-user-info ui-box">
-                  <div class="profile-detail">
-                    <div class="d-flex align-items-center">
-                      <div class="profile-avatar me-3">
-                        <img src="/images/avatar/default.png" alt="avatar" />
+                  <template v-if="authStore.isLogin">
+                    <div class="profile-detail">
+                      <div class="d-flex align-items-center">
+                        <div class="profile-avatar me-3">
+                          <img src="/images/avatar/default.png" alt="avatar" />
+                        </div>
+                        <div class="profile-info">
+                          <a href="#" class="text-decoration-none text-dark fw-bold mb-2">جلال بهرامی راد</a>
+                          <div class="text-muted fs-7 fw-bold">۰۹xxxxxxxxx</div>
+                        </div>
                       </div>
-                      <div class="profile-info">
-                        <a href="#" class="text-decoration-none text-dark fw-bold mb-2">جلال بهرامی راد</a>
-                        <div class="text-muted fs-7 fw-bold">۰۹xxxxxxxxx</div>
-                      </div>
-                    </div>
-                    <div class="user-options">
-                      <ul>
-                        <li>
-                          <span class="label">کیف پول</span>
-                          <span class="detail">
-                            <span class="d-block">۰
-                              <span class="currency fs-7 fw-bold">تومان</span></span>
-                            <a href="#" class="
+                      <div class="user-options">
+                        <ul>
+                          <li>
+                            <span class="label">کیف پول</span>
+                            <span class="detail">
+                              <span class="d-block">۰
+                                <span class="currency fs-7 fw-bold">تومان</span></span>
+                              <a href="#" class="
                                 link
                                 border-bottom-0
                                 text-info
                                 fs-7
                                 fw-bold
                               ">افزایش موجودی <i class="ri-arrow-left-s-line"></i></a>
-                          </span>
-                        </li>
-                        <li>
-                          <span class="label">باشگاه مشتریان</span>
-                          <span class="detail">
-                            <span class="d-block">۰
-                              <span class="score text-muted fs-7">امتیاز</span></span>
-                          </span>
-                        </li>
-                      </ul>
+                            </span>
+                          </li>
+                          <li>
+                            <span class="label">باشگاه مشتریان</span>
+                            <span class="detail">
+                              <span class="d-block">۰
+                                <span class="score text-muted fs-7">امتیاز</span></span>
+                            </span>
+                          </li>
+                        </ul>
+                      </div>
                     </div>
-                  </div>
-                  <ul class="nav nav-items-with-icon flex-column">
-                    <li class="nav-item">
-                      <a class="nav-link" href="#"><i class="nav-link-icon ri-file-list-3-line"></i> سفارش
-                        های من</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#"><i class="nav-link-icon ri-copper-coin-fill"></i>
-                        باشگاه مشتریان</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#"><i class="nav-link-icon ri-logout-box-r-line"></i>
-                        خروج</a>
-                    </li>
-                  </ul>
+                    <ul class="nav nav-items-with-icon flex-column">
+                      <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="nav-link-icon ri-file-list-3-line"></i> سفارش
+                          های من</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="nav-link-icon ri-copper-coin-fill"></i>
+                          باشگاه مشتریان</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="nav-link-icon ri-logout-box-r-line"></i>
+                          خروج</a>
+                      </li>
+                    </ul>
+                  </template>
+                  <template v-else>
+                    <ul class="nav nav-items-with-icon flex-column">
+                      <li class="nav-item">
+                        <nuxt-link class="nav-link" to="/auth/login">
+                          <i class="nav-link-icon ri-login-box-line"></i>
+                          ورود به سایت</nuxt-link>
+                      </li>
+                      <li class="nav-item">
+                        <nuxt-link class="nav-link" to="/auth/register">
+                          <i class="nav-link-icon ri-user-add-line"></i>
+                          ثبت نام</nuxt-link>
+                      </li>
+                    </ul>
+                  </template>
                 </div>
               </div>
             </div>
@@ -419,8 +421,10 @@
   </header>
 </template>
 
-<script>
-export default {};
+<script setup lang="ts">
+import { useAuthStore } from '~~/stores/authStore';
+
+const authStore = useAuthStore();
 </script>
 
 <style>

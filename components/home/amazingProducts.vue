@@ -32,8 +32,6 @@
 </template>
 
 <script setup lang="ts">
-import { Carousel, Slide } from "vue3-carousel";
-
 import { ProductCardDto } from '~~/models/ProductCard';
 
 const props = defineProps<{
