@@ -112,46 +112,27 @@
           </div>
           <div class="user-options">
             <div class="user-option user-option--account">
-              <a href="profile.html" class="user-option-btn user-option-btn--account">
+              <nuxt-link to="/profile" class="user-option-btn user-option-btn--account">
                 <i class="ri-user-fill icon"></i>
                 <i class="ri-arrow-down-s-fill icon fs-7 text-muted"></i>
-              </a>
+              </nuxt-link>
               <div class="user-option--dropdown user-option--dropdown-right">
                 <div class="profile-user-info ui-box">
                   <template v-if="authStore.isLogin">
                     <div class="profile-detail">
                       <div class="d-flex align-items-center">
                         <div class="profile-avatar me-3">
-                          <img src="/images/avatar/default.png" alt="avatar" />
+                          <base-image :src="GetUserAvatar(authStore.currentUser?.avatarName??'')" alt="avatar" />
                         </div>
                         <div class="profile-info">
-                          <a href="#" class="text-decoration-none text-dark fw-bold mb-2">جلال بهرامی راد</a>
-                          <div class="text-muted fs-7 fw-bold">۰۹xxxxxxxxx</div>
+                          <nuxt-link to="/profile" class="text-decoration-none text-dark fw-bold mb-2">{{ authStore.currentUser?.name
+}} {{ authStore.currentUser?.family }}</nuxt-link>
+                          <div class="text-muted fs-7 fw-bold">{{ authStore.currentUser?.phoneNumber }}</div>
                         </div>
                       </div>
                       <div class="user-options">
                         <ul>
-                          <li>
-                            <span class="label">کیف پول</span>
-                            <span class="detail">
-                              <span class="d-block">۰
-                                <span class="currency fs-7 fw-bold">تومان</span></span>
-                              <a href="#" class="
-                                link
-                                border-bottom-0
-                                text-info
-                                fs-7
-                                fw-bold
-                              ">افزایش موجودی <i class="ri-arrow-left-s-line"></i></a>
-                            </span>
-                          </li>
-                          <li>
-                            <span class="label">باشگاه مشتریان</span>
-                            <span class="detail">
-                              <span class="d-block">۰
-                                <span class="score text-muted fs-7">امتیاز</span></span>
-                            </span>
-                          </li>
+                          
                         </ul>
                       </div>
                     </div>
@@ -423,6 +404,7 @@
 
 <script setup lang="ts">
 import { useAuthStore } from '~~/stores/authStore';
+import { GetUserAvatar } from '~~/utilities/ImageUrls';
 
 const authStore = useAuthStore();
 </script>
