@@ -47,4 +47,8 @@ defineProps({
   width: 1.5rem;
   height: 1.5rem;
 }
+button{
+  display: flex;
+  align-items: center;
+}
 </style>

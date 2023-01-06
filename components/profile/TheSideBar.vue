@@ -40,8 +40,8 @@
                             نظرات</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="nav-link-icon ri-map-pin-line"></i> نشانی
-                            ها</a>
+                        <nuxt-link class="nav-link" to="/profile/address"><i class="nav-link-icon ri-map-pin-line"></i> نشانی
+                            ها</nuxt-link>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#"><i class="nav-link-icon ri-gift-line"></i> کارت های
