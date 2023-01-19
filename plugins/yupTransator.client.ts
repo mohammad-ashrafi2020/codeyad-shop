@@ -8,6 +8,8 @@ export default defineNuxtPlugin((nuxtApp) => {
     },
     string: {
       email: "ایمیل نامعتبر است",
+      min: " حداقل مقدار ${path} ${min} است",
+      max: " حداقل مقدار ${path} ${max} است",
     },
     number: {
       min: " حداقل مقدار ${path} ${min} است",

@@ -6,7 +6,9 @@ input[type='file'] {
     padding-top: 12px;
     padding-right: 1rem;
 }
-
+.form-element-row{
+    margin-bottom: 1rem;
+}
 .Vue-Toastification__toast-body {
     font-family: iranyekan !important;
 }
