@@ -27,6 +27,12 @@
                         </nuxt-link>
                     </li>
                     <li class="nav-item">
+                        <nuxt-link to="/profile/changePassword" class="nav-link">
+                            <i class="nav-link-icon ri-lock-password-line"></i>
+                            تغییر کلمه عبور
+                        </nuxt-link>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="#"><i class="nav-link-icon ri-file-list-3-line"></i>
                             سفارش
                             های من</a>
@@ -40,7 +46,8 @@
                             نظرات</a>
                     </li>
                     <li class="nav-item">
-                        <nuxt-link class="nav-link" to="/profile/address"><i class="nav-link-icon ri-map-pin-line"></i> نشانی
+                        <nuxt-link class="nav-link" to="/profile/address"><i class="nav-link-icon ri-map-pin-line"></i>
+                            نشانی
                             ها</nuxt-link>
                     </li>
                     <li class="nav-item">
