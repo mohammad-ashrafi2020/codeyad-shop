@@ -24,7 +24,7 @@
                     </span>
                     <span class="d-flex align-items-center justify-content-end">
                         <a href="#" class="link border-bottom-0 fs-7 fw-bold"
-                            data-remodal-target="remove-from-addresses-modal">حذف</a>
+                            data-remodal-target="remove-from-addresses-modal" @click="openDeleteModal(item.id)">حذف</a>
                         <span class="text-secondary mx-2">|</span>
                         <a href="#" @click="editAddress(item)" class="link border-bottom-0 fs-7 fw-bold">ویرایش</a>
                     </span>
@@ -44,6 +44,11 @@
         <base-modal v-model="isOpenEditModal" title="ویرایش آدرس">
             <profile-addresses-edit @close-modal="refreshData" :address="selectedAddres!" />
         </base-modal>
+        <base-dialog @confirmed="deleteAddress" v-model="isOpenDeleteModal" :loading="loading">
+            <p>
+                آیا مطمئنید که این آدرس حذف شود؟
+            </p>
+        </base-dialog>
     </div>
 </template>
 
@@ -52,11 +57,14 @@ import { add } from "lodash";
 import { Ref } from "vue";
 import { useToast } from "vue-toastification";
 import { AddressDto } from "~~/models/users/addressDto";
-import { GetAddressList, SetActiveAddress } from '~~/services/userAddress.service';
+import { GetAddressList, SetActiveAddress, DeleteAddress } from '~~/services/userAddress.service';
 
 const isOpenCreateModal = ref(false);
 const isOpenEditModal = ref(false);
+const isOpenDeleteModal = ref(false);
 
+
+const selectedAddressId = ref(0);
 const addresses: Ref<AddressDto[]> = ref([]);
 const selectedAddres: Ref<AddressDto | null> = ref(null);
 const loading = ref(false);
@@ -70,6 +78,8 @@ const refreshData = async () => {
 onMounted(async () => {
     await getAddresses();
 })
+
+
 const editAddress = (address: AddressDto) => {
     selectedAddres.value = address;
     isOpenEditModal.value = true;
@@ -77,6 +87,27 @@ const editAddress = (address: AddressDto) => {
 const getAddresses = async () => {
     var result = await GetAddressList();
     addresses.value = result.data;
+}
+const deleteAddress = async () => {
+    if (selectedAddressId.value == 0)
+        return;
+
+    loading.value = true;
+    var result = await DeleteAddress(selectedAddressId.value);
+    loading.value = false;
+    
+    if (result.isSuccess) {
+        toast.success("حذف با موفقیت انجام شد");
+        isOpenDeleteModal.value = false;
+        addresses.value = addresses.value.filter(f => f.id != selectedAddressId.value);
+        selectedAddressId.value = 0;
+    } else {
+        toast.success(result.metaData.message);
+    }
+}
+const openDeleteModal = (id: number) => {
+    isOpenDeleteModal.value = true;
+    selectedAddressId.value = id;
 }
 const setActiveAddress = async (id: number) => {
     loading.value = true;
