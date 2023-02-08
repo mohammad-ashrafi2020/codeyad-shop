@@ -23,9 +23,19 @@
                 <div class="product-actions">
                     <ul>
                         <li>
-                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title=""
-                                data-bs-original-title="افزودن به سبد خرید" aria-label="افزودن به سبد خرید"><i
-                                    class="ri-shopping-cart-line"></i></a>
+                            <a href="#" @click="shopCartStore.AddItem({
+                            count: 1,
+                            creationDate: new Date(),
+                            id: 1,
+                            inventoryId: product.inventoryId,
+                            orderId: 0,
+                            price: product.totalPrice,
+                            productImageName: product.imageName,
+                            productSlug: product.slug,
+                            productTitle: product.title,
+                            shopName:'',
+                                totalPrice:product.totalPrice * 1
+                            })"><i class="ri-shopping-cart-line"></i></a>
                         </li>
                         <li>
                             <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title=""
@@ -50,6 +60,7 @@
 </template>
 <script setup lang="ts">
 import { ProductCardDto } from '~~/models/ProductCard';
+import { useShopCartStore } from '~~/stores/shopCartStore';
 import { GetProductImage } from '~~/utilities/ImageUrls';
 import { splitNumber } from '~~/utilities/numberUtils';
 
@@ -57,5 +68,8 @@ const props = defineProps<{
     product: ProductCardDto,
 }>();
 
+const shopCartStore = useShopCartStore();
+
 const url = `/product/${props.product.slug}`;
+
 </script>
