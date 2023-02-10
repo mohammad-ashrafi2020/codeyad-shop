@@ -9,10 +9,21 @@ export const useShopCartStore = defineStore("shopCart", () => {
   const items: Ref<OrderItemDto[]> = ref([]);
 
   const AddItem = (item: OrderItemDto) => {
-    items.value.push(item);
+    item.id = new Date().getTime();
+    var currentItem = items.value.find(
+      (f) => f.inventoryId == item.inventoryId
+    );
+    if (currentItem) {
+      currentItem.count += item.count;
+    } else {
+      items.value.push(item);
+    }
     syncLocalCart();
   };
-  const DeleteItem = () => {};
+  const DeleteItem = (id: number) => {
+    items.value = items.value.filter((f) => f.id != id);
+    syncLocalCart();
+  };
   const ChangeCount = () => {};
 
   const Init = () => {
@@ -30,5 +41,31 @@ export const useShopCartStore = defineStore("shopCart", () => {
     localStorage.setItem("cart-Items", JSON.stringify(items.value));
   };
 
-  return { AddItem, DeleteItem, ChangeCount, Init, items };
+  const getTotalPrice = () => {
+    var sum = 0;
+
+    items.value.forEach((f) => {
+      sum += f.totalPrice;
+    });
+
+    return sum;
+  };
+  const getTotalItem = () => {
+    var count = 0;
+
+    items.value.forEach((f) => {
+      count += f.count;
+    });
+
+    return count;
+  };
+  return {
+    AddItem,
+    DeleteItem,
+    ChangeCount,
+    Init,
+    getTotalPrice,
+    getTotalItem,
+    items,
+  };
 });

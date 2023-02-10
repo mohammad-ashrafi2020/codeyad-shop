@@ -122,17 +122,18 @@
                     <div class="profile-detail">
                       <div class="d-flex align-items-center">
                         <div class="profile-avatar me-3">
-                          <base-image :src="GetUserAvatar(authStore.currentUser?.avatarName??'')" alt="avatar" />
+                          <base-image :src="GetUserAvatar(authStore.currentUser?.avatarName ?? '')" alt="avatar" />
                         </div>
                         <div class="profile-info">
-                          <nuxt-link to="/profile" class="text-decoration-none text-dark fw-bold mb-2">{{ authStore.currentUser?.name
-}} {{ authStore.currentUser?.family }}</nuxt-link>
+                          <nuxt-link to="/profile" class="text-decoration-none text-dark fw-bold mb-2">{{
+                            authStore.currentUser?.name
+                          }} {{ authStore.currentUser?.family }}</nuxt-link>
                           <div class="text-muted fs-7 fw-bold">{{ authStore.currentUser?.phoneNumber }}</div>
                         </div>
                       </div>
                       <div class="user-options">
                         <ul>
-                          
+
                         </ul>
                       </div>
                     </div>
@@ -174,127 +175,7 @@
                 <span class="counter">۲</span>
               </a>
             </div>
-            <div class="user-option user-option--cart">
-              <a href="cart.html" class="user-option-btn user-option-btn--cart">
-                <i class="ri-shopping-bag-2-fill icon"></i>
-                <span class="user-item-text">
-                  <span class="title">سبد خرید شما</span>
-                  <span class="value fa-num">83,678,000 <span class="currency">تومان</span></span>
-                </span>
-                <span class="counter">۴</span>
-              </a>
-              <div class="mini-cart">
-                <div class="mini-cart-header">
-                  <span class="mini-cart-products-count fa-num">4 کالا</span>
-                  <a href="cart.html" class="btn btn-link px-0">مشاهده سبد خرید <i class="ri-arrow-left-s-fill"></i></a>
-                </div>
-                <div class="mini-cart-products do-simplebar">
-                  <div class="mini-cart-product">
-                    <div class="mini-cart-product-thumbnail">
-                      <a href="#"><img src="/images/products/01.jpg" alt="" /></a>
-                    </div>
-                    <div class="mini-cart-product-detail">
-                      <div class="mini-cart-product-brand">
-                        <a href="#">apple</a>
-                      </div>
-                      <div class="mini-cart-product-title">
-                        <a href="product-v1.html">گوشی موبایل اپل مدل iPhone 13 A2634 دو سیم‌ کارت
-                          ظرفیت 128 گیگابایت و رم 4 گیگابایت</a>
-                      </div>
-                      <div class="mini-cart-purchase-info">
-                        <div class="mini-cart-product-meta">
-                          <span class="fa-num">1 عدد</span>
-                          <span class="color" style="background-color: #d4d4d4"></span>
-                        </div>
-                        <div class="mini-cart-product-price fa-num">
-                          26,249,000 <span class="currency">تومان</span>
-                        </div>
-                      </div>
-                      <button class="mini-cart-product-remove"></button>
-                    </div>
-                  </div>
-                  <div class="mini-cart-product">
-                    <div class="mini-cart-product-thumbnail">
-                      <a href="#"><img src="/images/products/02.jpg" alt="" /></a>
-                    </div>
-                    <div class="mini-cart-product-detail">
-                      <div class="mini-cart-product-brand">
-                        <a href="#">xiaomi</a>
-                      </div>
-                      <div class="mini-cart-product-title">
-                        <a href="product-v1.html">گوشی موبایل شیائومی مدل 11 lite 5G NE 2109119DG دو
-                          سیم‌ کارت ظرفیت 256 گیگابایت و رم 8 گیگابایت</a>
-                      </div>
-                      <div class="mini-cart-purchase-info">
-                        <div class="mini-cart-product-meta">
-                          <span class="fa-num">1 عدد</span>
-                          <span class="color" style="background-color: #d4d4d4"></span>
-                        </div>
-                        <div class="mini-cart-product-price fa-num">
-                          8,239,000 <span class="currency">تومان</span>
-                        </div>
-                      </div>
-                      <button class="mini-cart-product-remove"></button>
-                    </div>
-                  </div>
-                  <div class="mini-cart-product">
-                    <div class="mini-cart-product-thumbnail">
-                      <a href="#"><img src="/images/products/05.jpg" alt="" /></a>
-                    </div>
-                    <div class="mini-cart-product-detail">
-                      <div class="mini-cart-product-brand">
-                        <a href="#">apple</a>
-                      </div>
-                      <div class="mini-cart-product-title">
-                        <a href="product-v1.html">گوشی موبایل اپل مدل iPhone 12 Pro Max A2412 دو سیم‌
-                          کارت ظرفیت 256 گیگابایت</a>
-                      </div>
-                      <div class="mini-cart-purchase-info">
-                        <div class="mini-cart-product-meta">
-                          <span class="fa-num">1 عدد</span>
-                          <span class="color" style="background-color: #d4d4d4"></span>
-                        </div>
-                        <div class="mini-cart-product-price fa-num">
-                          36,300,000 <span class="currency">تومان</span>
-                        </div>
-                      </div>
-                      <button class="mini-cart-product-remove"></button>
-                    </div>
-                  </div>
-                  <div class="mini-cart-product">
-                    <div class="mini-cart-product-thumbnail">
-                      <a href="#"><img src="/images/products/07.jpg" alt="" /></a>
-                    </div>
-                    <div class="mini-cart-product-detail">
-                      <div class="mini-cart-product-brand">
-                        <a href="#">samsung</a>
-                      </div>
-                      <div class="mini-cart-product-title">
-                        <a href="product-v1.html">گوشی موبایل سامسونگ مدل Galaxy S9 Plus دو سیم کارت
-                          ظرفیت 64 گیگابایت</a>
-                      </div>
-                      <div class="mini-cart-purchase-info">
-                        <div class="mini-cart-product-meta">
-                          <span class="fa-num">1 عدد</span>
-                          <span class="color" style="background-color: #d4d4d4"></span>
-                        </div>
-                        <div class="mini-cart-product-price fa-num">
-                          12,890,000 <span class="currency">تومان</span>
-                        </div>
-                      </div>
-                      <button class="mini-cart-product-remove"></button>
-                    </div>
-                  </div>
-                </div>
-                <div class="mini-cart-footer">
-                  <div class="mini-cart-total">
-                    <span class="mini-cart-total-label">مبلغ قابل پرداخت:</span>
-                    <span class="mini-cart-total-value fa-num">83,678,000 <span class="currency">تومان</span></span>
-                  </div>
-                  <a href="#" class="btn btn-primary">ورود و ثبت سفارش</a>
-                </div>
-              </div>
-            </div>
+            <mini-shop-cart />
           </div>
         </div>
       </div>

@@ -9,4 +9,5 @@ export interface ProductCardDto {
   rate: string;
   totalPrice: number;
   commentCount: number;
+  shopName: string;
 }

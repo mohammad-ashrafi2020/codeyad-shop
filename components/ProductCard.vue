@@ -24,17 +24,17 @@
                     <ul>
                         <li>
                             <a href="#" @click="shopCartStore.AddItem({
-                            count: 1,
-                            creationDate: new Date(),
-                            id: 1,
-                            inventoryId: product.inventoryId,
-                            orderId: 0,
-                            price: product.totalPrice,
-                            productImageName: product.imageName,
-                            productSlug: product.slug,
-                            productTitle: product.title,
-                            shopName:'',
-                                totalPrice:product.totalPrice * 1
+                                count: 1,
+                                creationDate: new Date(),
+                                id: 1,
+                                inventoryId: product.inventoryId,
+                                orderId: 0,
+                                price: product.totalPrice,
+                                productImageName: product.imageName,
+                                productSlug: product.slug,
+                                productTitle: product.title,
+                                shopName: product.shopName,
+                                totalPrice: product.totalPrice * 1
                             })"><i class="ri-shopping-cart-line"></i></a>
                         </li>
                         <li>
