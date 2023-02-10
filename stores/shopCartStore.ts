@@ -15,6 +15,7 @@ export const useShopCartStore = defineStore("shopCart", () => {
     );
     if (currentItem) {
       currentItem.count += item.count;
+      currentItem.totalPrice = currentItem.price * currentItem.count;
     } else {
       items.value.push(item);
     }
@@ -24,7 +25,24 @@ export const useShopCartStore = defineStore("shopCart", () => {
     items.value = items.value.filter((f) => f.id != id);
     syncLocalCart();
   };
-  const ChangeCount = () => {};
+  const IncreaseCount = (id: number, count: number) => {
+    var currentItem = items.value.find((f) => f.id == id);
+    if (currentItem) {
+      currentItem.count += count;
+      currentItem.totalPrice = currentItem.price * currentItem.count;
+
+      syncLocalCart();
+    }
+  };
+  const DecreaseCount = (id: number, count: number) => {
+    var currentItem = items.value.find((f) => f.id == id);
+    if (currentItem && currentItem.count > 1) {
+      currentItem.count -= count;
+      currentItem.totalPrice = currentItem.price * currentItem.count;
+
+      syncLocalCart();
+    }
+  };
 
   const Init = () => {
     if (process.server == false) {
@@ -62,7 +80,8 @@ export const useShopCartStore = defineStore("shopCart", () => {
   return {
     AddItem,
     DeleteItem,
-    ChangeCount,
+    DecreaseCount,
+    IncreaseCount,
     Init,
     getTotalPrice,
     getTotalItem,

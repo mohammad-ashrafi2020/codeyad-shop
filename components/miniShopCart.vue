@@ -1,6 +1,6 @@
 <template>
     <div class="user-option user-option--cart">
-        <a href="cart.html" class="user-option-btn user-option-btn--cart">
+        <nuxt-link to="/cart" class="user-option-btn user-option-btn--cart">
             <i class="ri-shopping-bag-2-fill icon"></i>
             <span class="user-item-text">
                 <span class="title">سبد خرید شما</span>
@@ -8,11 +8,12 @@
                         class="currency">تومان</span></span>
             </span>
             <span class="counter">{{ shopCartStore.getTotalItem() }}</span>
-        </a>
+        </nuxt-link>
         <div class="mini-cart">
             <div class="mini-cart-header">
                 <span class="mini-cart-products-count fa-num">{{ shopCartStore.getTotalItem() }} کالا</span>
-                <a href="cart.html" class="btn btn-link px-0">مشاهده سبد خرید <i class="ri-arrow-left-s-fill"></i></a>
+                <nuxt-link to="/cart" class="btn btn-link px-0">مشاهده سبد خرید <i
+                        class="ri-arrow-left-s-fill"></i></nuxt-link>
             </div>
             <div class="mini-cart-products do-simplebar">
                 <div class="mini-cart-product" v-for="item in shopCartStore.items" :key="item.id">
