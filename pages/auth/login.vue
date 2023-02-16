@@ -39,12 +39,15 @@ import { Form } from "vee-validate";
 import * as Yup from "yup";
 import { Login } from "~~/services/auth.service";
 import { useAuthStore } from "~~/stores/authStore";
+import { useShopCartStore } from "~~/stores/shopCartStore";
 
 definePageMeta({
   layout: "auth",
 });
 
 const authStore = useAuthStore();
+const cartStore = useShopCartStore();
+
 const loading = ref(false);
 const loginData = reactive({
   phoneNumber: "",
@@ -67,6 +70,7 @@ const loginUser = async (data: any, formEvent: any) => {
   if (result.isSuccess) {
     localStorage.setItem("auth-data", JSON.stringify(result.data));
     authStore.SetCurrentUserValue();
+    cartStore.syncRemoteCart();
     await router.push("/");
   } else {
     formEvent.setFieldError(
@@ -77,6 +81,4 @@ const loginUser = async (data: any, formEvent: any) => {
 };
 </script>
 
-<style>
-
-</style>
+<style></style>

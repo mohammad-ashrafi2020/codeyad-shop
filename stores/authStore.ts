@@ -11,6 +11,7 @@ export const useAuthStore = defineStore("auth", () => {
   const loading = ref(false);
   const isLogin = computed(() => loginResult.value != null);
 
+  
   const SetCurrentUserValue = async () => {
     const localStoregData = localStorage.getItem("auth-data");
     if (!localStoregData) {
@@ -29,6 +30,5 @@ export const useAuthStore = defineStore("auth", () => {
     loading.value = false;
   };
 
-
-  return {loading,loginResult,currentUser,SetCurrentUserValue,isLogin}
+  return { loading, loginResult, currentUser, SetCurrentUserValue, isLogin };
 });

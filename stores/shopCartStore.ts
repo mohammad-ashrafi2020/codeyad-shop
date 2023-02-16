@@ -1,14 +1,34 @@
+import {
+  AddItemToCurrentOrder,
+  DeleteOrderItem,
+  GetCurrentOrder,
+  InCreaseOrderItemCount,
+  DeCreaseOrderItemCount,
+} from "./../services/order.service";
 import { OrderItemDto } from "./../models/orders/OrderItemDto";
 import { defineStore } from "pinia";
 import { Ref } from "vue";
 import { CategoryDto } from "~~/models/categories/categoryDto";
 import { GetAllCategory } from "~~/services/category.service";
 import { json } from "stream/consumers";
+import { useToast } from "vue-toastification";
 
 export const useShopCartStore = defineStore("shopCart", () => {
   const items: Ref<OrderItemDto[]> = ref([]);
+  const loading = ref(false);
+  const toast = useToast();
+  const AddItem = async (item: OrderItemDto) => {
+    loading.value = true;
 
-  const AddItem = (item: OrderItemDto) => {
+    if (isLogin()) {
+      var result = await AddItemToCurrentOrder(item.inventoryId, item.count);
+      if (result.isSuccess == false) {
+        toast.error("مشکلی در عملیات رخ داده");
+        loading.value = false;
+        return;
+      }
+    }
+
     item.id = new Date().getTime();
     var currentItem = items.value.find(
       (f) => f.inventoryId == item.inventoryId
@@ -19,33 +39,77 @@ export const useShopCartStore = defineStore("shopCart", () => {
     } else {
       items.value.push(item);
     }
+    toast.success("محصول به سبد خرید اضافه شد");
+    loading.value = false;
     syncLocalCart();
   };
-  const DeleteItem = (id: number) => {
+  const DeleteItem = async (id: number) => {
+    loading.value = true;
+    if (isLogin()) {
+      var result = await DeleteOrderItem(id);
+      if (result.isSuccess == false) {
+        toast.error("مشکلی در عملیات رخ داده");
+
+        loading.value = false;
+        return;
+      }
+    }
     items.value = items.value.filter((f) => f.id != id);
+    toast.success("عملیات انجام شد");
+    loading.value = true;
     syncLocalCart();
   };
-  const IncreaseCount = (id: number, count: number) => {
+  const IncreaseCount = async (id: number, count: number) => {
+    loading.value = true;
+    if (isLogin()) {
+      var result = await InCreaseOrderItemCount(id, count);
+      if (result.isSuccess == false) {
+        toast.error("مشکلی در عملیات رخ داده");
+
+        loading.value = false;
+        return;
+      }
+    }
+
     var currentItem = items.value.find((f) => f.id == id);
     if (currentItem) {
       currentItem.count += count;
       currentItem.totalPrice = currentItem.price * currentItem.count;
 
+      toast.success("عملیات انجام شد");
+      loading.value = true;
       syncLocalCart();
     }
   };
-  const DecreaseCount = (id: number, count: number) => {
+  const DecreaseCount = async (id: number, count: number) => {
+    loading.value = true;
+    if (isLogin()) {
+      var result = await DeCreaseOrderItemCount(id, count);
+      if (result.isSuccess == false) {
+        toast.error("مشکلی در عملیات رخ داده");
+        loading.value = false;
+        return;
+      }
+    }
+
     var currentItem = items.value.find((f) => f.id == id);
     if (currentItem && currentItem.count > 1) {
       currentItem.count -= count;
       currentItem.totalPrice = currentItem.price * currentItem.count;
 
+      toast.success("عملیات انجام شد");
+
+      loading.value = true;
       syncLocalCart();
     }
   };
 
-  const Init = () => {
-    if (process.server == false) {
+  const Init = async () => {
+    if (process.server) return;
+    if (isLogin()) {
+      var result = await GetCurrentOrder();
+      items.value = result.data.items;
+    } else {
       var data = localStorage.getItem("cart-Items");
       if (!data) return;
 
@@ -55,10 +119,23 @@ export const useShopCartStore = defineStore("shopCart", () => {
   };
 
   const syncLocalCart = () => {
+    if (isLogin()) return;
     localStorage.removeItem("cart-Items");
     localStorage.setItem("cart-Items", JSON.stringify(items.value));
   };
+  const syncRemoteCart = async () => {
+    if (isLogin() == false) return;
 
+    loading.value = true;
+    var data = localStorage.getItem("cart-Items");
+    if (!data) return;
+    var localItems = JSON.parse(data) as OrderItemDto[];
+    localItems.forEach(async (e) => {
+      await AddItemToCurrentOrder(e.inventoryId, e.count);
+    });
+    loading.value = false;
+    localStorage.removeItem("cart-Items");
+  };
   const getTotalPrice = () => {
     var sum = 0;
 
@@ -77,6 +154,10 @@ export const useShopCartStore = defineStore("shopCart", () => {
 
     return count;
   };
+
+  const isLogin = () => {
+    return localStorage.getItem("auth-data") != null;
+  };
   return {
     AddItem,
     DeleteItem,
@@ -86,5 +167,6 @@ export const useShopCartStore = defineStore("shopCart", () => {
     getTotalPrice,
     getTotalItem,
     items,
+    syncRemoteCart,
   };
 });
