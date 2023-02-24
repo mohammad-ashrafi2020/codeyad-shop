@@ -1,7 +1,7 @@
 <template>
     <div class="user-address-items">
         <div :class="['user-address-item', { 'active': item.activeAddress },
-        { 'disabled': loading }]" v-for="item in addresses" :key="item.id">
+            { 'disabled': loading }]" v-for="item in addresses" :key="item.id">
             <div class="custom-radio-box">
                 <label for="userAddress01" class="custom-radio-box-label" @click.self="setActiveAddress(item.id)"
                     :data-placeholder="item.activeAddress ? 'آدرس پیش فرض من است' : 'انتخاب به عنوان آدرس پیش فرض'">
@@ -63,6 +63,7 @@ const isOpenCreateModal = ref(false);
 const isOpenEditModal = ref(false);
 const isOpenDeleteModal = ref(false);
 
+const emits = defineEmits(['selectedAddress']);
 
 const selectedAddressId = ref(0);
 const addresses: Ref<AddressDto[]> = ref([]);
@@ -87,6 +88,7 @@ const editAddress = (address: AddressDto) => {
 const getAddresses = async () => {
     var result = await GetAddressList();
     addresses.value = result.data;
+    emits('selectedAddress', addresses.value.find(f => f.activeAddress))
 }
 const deleteAddress = async () => {
     if (selectedAddressId.value == 0)
@@ -95,7 +97,7 @@ const deleteAddress = async () => {
     loading.value = true;
     var result = await DeleteAddress(selectedAddressId.value);
     loading.value = false;
-    
+
     if (result.isSuccess) {
         toast.success("حذف با موفقیت انجام شد");
         isOpenDeleteModal.value = false;
@@ -119,7 +121,7 @@ const setActiveAddress = async (id: number) => {
             f.activeAddress = false
         });
         addresses.value.find(f => f.id == id)!.activeAddress = true;
-
+        emits('selectedAddress', addresses.value.find(f => f.id == id))
     } else {
         toast.success(res.metaData.message)
     }

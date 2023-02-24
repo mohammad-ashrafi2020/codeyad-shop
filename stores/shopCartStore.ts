@@ -1,3 +1,4 @@
+import { OrderDto } from "./../models/orders/OrderDto";
 import {
   AddItemToCurrentOrder,
   DeleteOrderItem,
@@ -15,6 +16,8 @@ import { useToast } from "vue-toastification";
 
 export const useShopCartStore = defineStore("shopCart", () => {
   const items: Ref<OrderItemDto[]> = ref([]);
+  const currentOrder: Ref<OrderDto | null> = ref(null);
+
   const loading = ref(false);
   const toast = useToast();
   const AddItem = async (item: OrderItemDto) => {
@@ -109,6 +112,7 @@ export const useShopCartStore = defineStore("shopCart", () => {
     if (isLogin()) {
       var result = await GetCurrentOrder();
       items.value = result.data.items;
+      currentOrder.value = result.data;
     } else {
       var data = localStorage.getItem("cart-Items");
       if (!data) return;
@@ -167,6 +171,7 @@ export const useShopCartStore = defineStore("shopCart", () => {
     getTotalPrice,
     getTotalItem,
     items,
+    currentOrder,
     syncRemoteCart,
   };
 });

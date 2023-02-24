@@ -9,14 +9,14 @@ export interface OrderDto {
   status: number;
   discount: DiscountDto;
   address: AddressDto;
-  shippingMethod: ShippingMethod;
+  shippingMethod: OrderShippingMethodDto;
   items: OrderItemDto[];
 }
 export interface DiscountDto {
   discountTitle: string;
   discountAmount: number;
 }
-export interface ShippingMethodDto {
+export interface OrderShippingMethodDto {
   shippingType: string;
   shippingCost: number;
 }

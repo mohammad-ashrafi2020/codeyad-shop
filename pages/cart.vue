@@ -25,7 +25,7 @@
                         این مبلغ اضافه خواهد شد
                     </div>
                     <div class="checkout-bill-row checkout-bill-action">
-                        <a href="#" class="btn btn-block btn-primary">ادامه فرایند خرید</a>
+                        <nuxt-link to="/checkout" class="btn btn-block btn-primary">ادامه فرایند خرید</nuxt-link>
                     </div>
                 </div>
                 <div class="widget p-0">
