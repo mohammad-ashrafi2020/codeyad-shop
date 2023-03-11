@@ -71,6 +71,12 @@
                 </div>
             </div>
         </div>
+
+        <div class="g__loading" v-if="gatwayLoading">
+            <div class="content">
+                <p>درحال انتقال به درگاه پرداخت ...</p>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -87,6 +93,7 @@ const shippingMethos: Ref<ShippingMethodDto[]> = ref([]);
 const selectedShipping = ref(0);
 const selectedAddress: Ref<AddressDto | null> = ref(null);
 const toast = useToast();
+const gatwayLoading = ref(false);
 
 const shopCartStore = useShopCartStore();
 onMounted(async () => {
@@ -103,6 +110,7 @@ const finallyOrder = async () => {
         toast.error("نحوه ارسال سفارش را انتخاب کنید")
         return;
     }
+    gatwayLoading.value = true;
     var result = await CheckoutOrder({
         userId: 0,
         shire: selectedAddress.value?.shire,
@@ -116,10 +124,49 @@ const finallyOrder = async () => {
         shippingMethodId: selectedShipping.value
     });
     if (result.isSuccess) {
-        var res = await PayOrder(shopCartStore.currentOrder!.id, "http://localhost:3000/checkout/error", "http://localhost:3000/checkout/success");
+        var res = await PayOrder(shopCartStore.currentOrder!.id,
+            "http://localhost:3000/checkout/error?orderId=" + shopCartStore.currentOrder!.id,
+            "http://localhost:3000/checkout/success?orderId=" + shopCartStore.currentOrder!.id);
         if (res.isSuccess) {
             window.location.replace(res.data)
+        } else {
+            gatwayLoading.value = false;
+            toast.error(res.metaData.message)
         }
+    } else {
+        toast.error(result.metaData.message)
+        gatwayLoading.value = false;
     }
 }
 </script>
+
+<style scoped >
+@media screen and (max-width:768px) {
+    .g__loading .content {
+        width: 90% !important;
+    }
+}
+
+.g__loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.418);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.g__loading .content {
+    width: 30%;
+    background: white;
+    box-shadow: 0 0 5px 0 gray;
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 16px;
+}
+</style>

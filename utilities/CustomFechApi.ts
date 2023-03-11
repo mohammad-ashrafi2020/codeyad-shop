@@ -18,9 +18,13 @@ export async function FetchApi<T>(
   }
   if (authStore && authStore.isLogin) {
     var loginData = authStore.loginResult;
-    config.headers["Authorization"] = `Bearer ${loginData.token}`;
+    if (loginData) {
+      //@ts-ignore
+      config.headers["Authorization"] = `Bearer ${loginData.token}`;
+    }
   }
 
+  //@ts-ignore
   return $fetch<ApiResponse<T>>(url, config)
     .then((res) => {
       return res;
