@@ -33,9 +33,10 @@
                         </nuxt-link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="nav-link-icon ri-file-list-3-line"></i>
+                        <nuxt-link class="nav-link" to="/profile/orders">
+                            <i class="nav-link-icon ri-file-list-3-line"></i>
                             سفارش
-                            های من</a>
+                            های من</nuxt-link>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#"><i class="nav-link-icon ri-heart-3-line"></i> لیست

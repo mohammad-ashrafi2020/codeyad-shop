@@ -1,4 +1,4 @@
-import { OrderDto } from "./../models/orders/OrderDto";
+import { OrderDto, OrderFilterResult } from "./../models/orders/OrderDto";
 import { ApiResponse } from "./../models/ApiResponse";
 import { FetchApi } from "~~/utilities/CustomFechApi";
 import { ShippingMethodDto } from "~~/models/ShippingMethodDto";
@@ -68,4 +68,17 @@ export const GetShippingMethods = (): Promise<
   ApiResponse<ShippingMethodDto[]>
 > => {
   return FetchApi("/ShippingMethod");
+};
+export const GetOrderById = (id: number): Promise<ApiResponse<OrderDto>> => {
+  return FetchApi("/order/" + id, {
+    method: "Get",
+  });
+};
+export const GetOrders = (): Promise<ApiResponse<OrderFilterResult>> => {
+  return FetchApi("/order/current/filter", {
+    method: "Get",
+    query: {
+      take: 50,
+    },
+  });
 };
