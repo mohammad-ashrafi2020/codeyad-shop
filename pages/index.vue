@@ -35,6 +35,4 @@ const { data, pending } = useAsyncData(
 );
 </script>
 
-<style>
-
-</style>
+<style></style>

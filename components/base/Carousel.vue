@@ -1,108 +1,39 @@
 <template>
-    <Carousel dir="rtl"  :itemsToShow="itemsToShow" :breakpoints="breakpoints" v-model="currentSlide">
-        <Slide :class="slideClass" v-for="(item,index) in items" :key="index">
+    <Swiper :space-between="spaceBetween" :navigation="navigation" :pagination="pagination" :wrapperClass="baseClass" :loop="loop"
+        :autoplay="autoplay" dir="rtl" :effect="effect" :modules="modules" :slides-per-view="itemsToShow"
+        :breakpoints="breakpoints">
+        <SwiperSlide :class="slideClass" v-for="(item, index) in items" :key="index">
             <slot name="item" :item="item" :index="index" />
-        </Slide>
-        <template #addons="{ slidesCount }">
-            <div class="slider__navigation" v-if="slidesCount>itemToShoow">
-                <div v-if="currentSlide==slidesCount|| (currentSlide>=slidesCount-(itemToShoow-3))" 
-                    class="swiper-button-next disabled">
-                </div>
-
-                <div v-else class="swiper-button-next" @click="nextSlide">
-                </div>
-
-                <div v-if="currentSlide<= 0" class="swiper-button-prev disabled"></div>
-                <div v-else class="swiper-button-prev" @click="prevSlide"></div>
-
-            </div>
-            <div class="slider__pagination" v-if="slides > 1">
-                <label v-for="item in slides" :class="{ active: item ==  activeSlide}" :key="item"
-                    @click="changeSlide(item)"></label>
-            </div>
-        </template>
-    </Carousel>
+        </SwiperSlide>
+    </Swiper>
 </template>
 
 <script setup lang="ts">
+import { SwiperOptions } from "swiper";
+import { AutoplayOptions, NavigationOptions, PaginationOptions, SwiperModule } from "swiper/types";
 import { Carousel, Slide } from "vue3-carousel";
 
-const { items, breakpoints={}, itemsToShow = 1, slideClass="", baseClass="" } = defineProps<{
+const props = withDefaults(defineProps<{
     items: any[],
-    breakpoints?: Object,
+    modules: SwiperModule[]
+    breakpoints?: any,
     itemsToShow?: number,
     slideClass?: string,
-    baseClass?: string
-}>();
-
-const itemToShoow = ref(itemsToShow);
-const currentSlide = ref(1);
-const isShow = ref(false);
-const slides = computed(() => Math.ceil(Number((items.length / itemToShoow.value))));
-const activeSlide = ref(1);
-
-onMounted(() => {
-    setTimeout(() => {
-        isShow.value = true;
-    }, 500);
-    onResize();
-    if (window.innerWidth <= 500) {
-        currentSlide.value = 0;
-    }
-    window.addEventListener('resize', onResize);
+    baseClass?: string,
+    loop?: boolean,
+    effect: 'slide' | 'fade' | 'cube' | 'coverflow' | 'flip' | 'creative' | 'cards',
+    autoplay?: AutoplayOptions,
+    navigation?: NavigationOptions,
+    pagination?: PaginationOptions,
+    spaceBetween?: number
+}>(), {
+    baseClass: "",
+    effect: "slide",
+    slideClass: "",
+    loop: false,
+    itemsToShow: 1,
+    spaceBetween: 0
 });
-
-onUnmounted(() => {
-    window.removeEventListener('resize', onResize);
-});
-const nextSlide = () => {
-    currentSlide.value += 1;
-}
-const prevSlide = () => {
-    currentSlide.value -= 1
-}
-const changeSlide = (slide: number) => {
-    if (slide == 1) {
-        currentSlide.value = 1;
-        return;
-    }
-    var res = slide * itemToShoow.value;
-    if (res > items.length)
-        res = items.length - 1;
-
-    currentSlide.value = res;
-}
-
-watch(currentSlide, (val) => {
-    if (val == 1) {
-        activeSlide.value = 1;
-        return;
-    }
-    activeSlide.value = Math.ceil(val / itemToShoow.value);
-});
-
-const onResize = () => {
-    getItemShow();
-}
-
-function getItemShow(): void {
-    const breakpointsArray: number[] = Object.keys(breakpoints)
-        .map((key: string): number => Number(key))
-        .sort((a: number, b: number) => +b - +a)
-    let itmeToShop = {}
-
-    breakpointsArray.some((breakpoint): boolean => {
-        const isMatched = window.matchMedia(`(min-width: ${breakpoint}px)`).matches
-        if (isMatched) {
-            itmeToShop = {
-                ...breakpoints[breakpoint],
-            }
-            return true
-        }
-        return false
-    })
-    itemToShoow.value = itmeToShop['itemsToShow'];
-}
 
 </script>
 

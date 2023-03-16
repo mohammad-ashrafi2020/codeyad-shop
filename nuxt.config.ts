@@ -1,5 +1,5 @@
 export default defineNuxtConfig({
-  modules: ["@pinia/nuxt"],
+  modules: ["@pinia/nuxt",'nuxt-swiper'],
   routeRules: {
     "/profile": { ssr: false },
     "/profile/**": { ssr: false },

@@ -3,7 +3,16 @@
         <div class="ui-box-title">دسته بندی محصولات</div>
         <div class="ui-box-content">
             <div class="categories-container">
-                <base-carousel :slideClass="'category-slide'" :breakpoints="breakpoints" :items="utilStore.categories">
+                <base-carousel class="pb-5" :modules="[SwiperNavigation, SwiperPagination]" :navigation="{
+                    enabled: true,
+                    navigationDisabledClass: '123'
+                }" :pagination="{
+    enabled: true,
+    clickable: true,
+    dynamicBullets: true,
+    paginationDisabledClass: '123'
+}" :slideClass="'category-slide'" :breakpoints="breakpoints"
+                    :items="[utilStore.categories[0], utilStore.categories[1], utilStore.categories[2], utilStore.categories[0], utilStore.categories[1], utilStore.categories[2], utilStore.categories[0], utilStore.categories[1], utilStore.categories[2]]">
                     <template #item="{ item }">
                         <div class="category-item">
                             <nuxt-link :to="`/search/category-${item.slug}`">
@@ -17,7 +26,6 @@
             </div>
         </div>
     </div>
-
 </template>
 
 <script setup lang="ts">
@@ -28,22 +36,22 @@ import { GetCategoryImage } from '~~/utilities/ImageUrls';
 const utilStore = useUtilStore();
 const breakpoints = ref({
     1200: {
-        itemsToShow: 7,
+        slidesPerView: 7,
     },
     1090: {
-        itemsToShow: 6,
+        slidesPerView: 6,
     },
     768: {
-        itemsToShow: 5,
+        slidesPerView: 5,
     },
     576: {
-        itemsToShow: 4,
+        slidesPerView: 4,
     },
     480: {
-        itemsToShow: 3,
+        slidesPerView: 3,
     },
     0: {
-        itemsToShow: 2,
+        slidesPerView: 2,
     },
 });
 </script>
