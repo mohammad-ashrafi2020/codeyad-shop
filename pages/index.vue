@@ -14,7 +14,8 @@
       <home-banner :banners="data.data.banners" :position="BannerPosition.زیر_اسلایدر" />
     </div>
     <!-- start of box => specials-product-slider -->
-    <home-amazing-products :products="data.data.amazingProducts" />
+    <home-amazing-products
+      :products="data.data.amazingProducts" />
     <home-categories />
     <!-- end of box => categories-slider -->
     <div class="row mb-5">
@@ -35,6 +36,4 @@ const { data, pending } = useAsyncData(
 );
 </script>
 
-<style>
-
-</style>
+<style></style>

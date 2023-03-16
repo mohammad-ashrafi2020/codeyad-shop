@@ -1,97 +1,72 @@
 <template>
-  <Carousel
-    dir="rtl"
-    v-model="currentSlide"
-    wrapAround
-    :autoplay="2000"
-    :itemsToShow="1"
-    pauseAutoplayOnHover
-    v-if="isShow"
-  >
-    <Slide
-      class="swiper-slide main-swiper-slide"
-      v-for="(item, index) in data"
-      :key="index"
-    >
+  <BaseCarousel class="main__slider" :items="data" :modules="[SwiperAutoplay, SwiperEffectFade, SwiperNavigation, SwiperPagination]"
+    :navigation="{
+      enabled: true,
+    }" :pagination="{
+  enabled: true,
+  clickable: true,
+  dynamicBullets: true
+}" :autoplay="{
+  delay: 3000,
+}" :slides-per-view="1" :loop="true" :effect="'fade'">
+
+    <template #item="{ item }">
       <a class="carousel__item" :href="item.link">
         <img :src="GetSliderImage(item.imageName)" :alt="item.title" />
       </a>
-    </Slide>
-
-    <template #addons="{ slidesCount }">
-      <div class="slider__navigation">
-        <div
-          class="swiper-button-prev"
-          v-if="slidesCount > currentSlide + 1"
-          @click="currentSlide += 1"
-        ></div>
-        <div
-          v-if="currentSlide > 0"
-          class="swiper-button-next"
-          @click="currentSlide -= 1"
-        ></div>
-      </div>
-      <div class="slider__pagination">
-        <label
-          :class="{ active: item == currentSlide + 1 }"
-          v-for="item in slidesCount"
-          :key="item"
-          @click="currentSlide = item - 1"
-        ></label>
-      </div>
     </template>
-  </Carousel>
+
+
+  </BaseCarousel>
 </template>
 
 <script setup lang="ts">
-import { Carousel, Slide } from "vue3-carousel";
-import "vue3-carousel/dist/carousel.css";
 import { SliderDto } from "~~/models/home/homeDataDto";
 import { GetSliderImage } from "~~/utilities/ImageUrls";
-const props = defineProps<{
+defineProps<{
   data: SliderDto[];
 }>();
-const currentSlide = ref(0);
-const isShow = ref(false);
-
-onMounted(() => {
-  setTimeout(() => {
-    isShow.value = true;
-  }, 500);
-});
 </script>
 
-<style scoped>
+<style >
 @media screen and (max-width:990px) {
   .carousel__item img {
-    height : auto  !important;
+    height: auto !important;
   }
 }
+
 .carousel__item {
   border-radius: 15px;
   width: 100%;
 }
+
 .carousel__item img {
   height: 455px;
   border-radius: 15px;
   width: 100%;
 }
+
 .carousel__slide {
   padding: 0;
   border-radius: 15px !important;
 }
-.swiper-button-prev::after,
-.swiper-button-next:after {
-  color: white;
-  font-size: 24px;
-  font-weight: bold;
+
+.main__slider .swiper-button-next::after,
+.main__slider .swiper-button-prev:after {
+  color: white !important;
+  font-size: 24px !important;
+  font-weight: bold !important;
 }
-.swiper-button-prev,
-.swiper-button-next {
-  width: 55px;
-  height: 55px;
-  background: transparent;
+
+.main__slider .swiper-button-prev,
+.main__slider .swiper-button-next {
+  width: 55px !important;
+  height: 55px !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
+
 .slider__pagination {
   display: flex;
   gap: 0.5rem;
@@ -101,16 +76,17 @@ onMounted(() => {
   right: 0;
   justify-content: center;
 }
-.slider__pagination label {
+
+.pag__item {
   width: 6px;
   height: 6px;
   background: rgba(0, 0, 0, 0.712);
   border-radius: 50%;
   cursor: pointer;
+  display: block;
 }
-.slider__pagination label.active {
+
+.main__slider .swiper-pagination-bullet-active {
   background: white !important;
-  width: 8px !important;
-  height: 8px !important;
 }
 </style>

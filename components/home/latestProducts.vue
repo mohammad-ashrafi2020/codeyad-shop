@@ -3,8 +3,19 @@
         <div class="ui-box mb-5">
             <div class="ui-box-title">جدید ترین محصولات</div>
             <div class="ui-box-content">
-                <base-carousel :breakpoints="breakpoints" :items="products" slideClass="swiper-slide main-swiper-slide">
-                    <template #item="{item}">
+                <base-carousel :itemsToShow="1.5" :modules="[SwiperNavigation, SwiperPagination]" :breakpoints="breakpoints"
+                    :items="products" :pagination="{
+                        enabled: true,
+                        clickable: true,
+                        dynamicBullets: true,
+                        paginationDisabledClass: '123',
+                        totalClass: 'top-10'
+                    }" :navigation="{
+    enabled: true,
+    navigationDisabledClass: '123'
+
+}" :spaceBetween="10">
+                    <template #item="{ item }">
                         <ProductCard :product="item" />
                     </template>
                 </base-carousel>
@@ -22,24 +33,22 @@ const props = defineProps<{
 
 const breakpoints = {
     1200: {
-        itemsToShow: 5,
+        slidesPerView: 5,
     },
     1090: {
-        itemsToShow: 4,
+        slidesPerView: 4,
     },
     768: {
-        itemsToShow: 3,
+        slidesPerView: 3,
     },
     576: {
-        itemsToShow: 2,
+        slidesPerView: 2,
     },
     480: {
-        itemsToShow: 1,
+        slidesPerView: 1,
     },
 };
 </script>
 
 
-<style scoped>
-
-</style>
+<style scoped></style>

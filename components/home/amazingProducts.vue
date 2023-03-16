@@ -17,9 +17,20 @@
                             </div>
                         </div>
                         <div class="col-lg-9">
-                            <base-carousel :breakpoints="breakpoints" :items="products"
-                                slideClass="swiper-slide main-swiper-slide">
-                                <template #item="{item}">
+                            <base-carousel style="height: 100%;" :spaceBetween="5"
+                                :modules="[SwiperPagination, SwiperNavigation]" 
+                                :pagination="{
+                                    enabled: true,
+                                    clickable: true,
+                                    dynamicBullets: true,
+                                    paginationDisabledClass: '123',
+                                    totalClass: 'top-10'
+                                }" :navigation="{
+    enabled: true,
+    navigationDisabledClass: '123'
+
+}" :breakpoints="breakpoints" :items="products" slideClass="swiper-slide main-swiper-slide">
+                                <template #item="{ item }">
                                     <ProductCard :product="item" />
                                 </template>
                             </base-carousel>
@@ -40,20 +51,32 @@ const props = defineProps<{
 
 const breakpoints = {
     1200: {
-        itemsToShow: 4,
+        slidesPerView: 4,
     },
     992: {
-        itemsToShow: 3,
+        slidesPerView: 3,
     },
     576: {
-        itemsToShow: 3,
+        slidesPerView: 2,
     },
     480: {
-        itemsToShow: 2,
+        slidesPerView: 1,
     },
 };
 </script>
 
-<style scoped>
+<style >
+.ui-box-specials .swiper-button-prev,
+.ui-box-specials .swiper-button-next {
+    top: 40% !important;
+}
 
+.ui-box-specials .swiper-pagination-horizontal {
+    top: 90% !important;
+    height: fit-content;
+    position: absolute;
+}
+.ui-box-specials .swiper-pagination-bullet-active {
+  background: white !important;
+}
 </style>

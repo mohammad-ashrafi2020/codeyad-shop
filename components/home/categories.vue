@@ -3,7 +3,18 @@
         <div class="ui-box-title">دسته بندی محصولات</div>
         <div class="ui-box-content">
             <div class="categories-container">
-                <base-carousel :slideClass="'category-slide'" :breakpoints="breakpoints" :items="utilStore.categories">
+                <base-carousel  style="height: 100%;" :modules="[SwiperPagination, SwiperNavigation]"
+                    :slideClass="'category-slide'" :breakpoints="breakpoints" :items="utilStore.categories" :pagination="{
+                        enabled: true,
+                        clickable: true,
+                        dynamicBullets: true,
+                        paginationDisabledClass: '123',
+                        totalClass: 'top-10'
+                    }" :navigation="{
+    enabled: true,
+    navigationDisabledClass: '123'
+
+}">
                     <template #item="{ item }">
                         <div class="category-item">
                             <nuxt-link :to="`/search/category-${item.slug}`">
@@ -17,7 +28,6 @@
             </div>
         </div>
     </div>
-
 </template>
 
 <script setup lang="ts">
@@ -28,29 +38,44 @@ import { GetCategoryImage } from '~~/utilities/ImageUrls';
 const utilStore = useUtilStore();
 const breakpoints = ref({
     1200: {
-        itemsToShow: 7,
+        slidesPerView: 7,
     },
     1090: {
-        itemsToShow: 6,
+        slidesPerView: 6,
     },
     768: {
-        itemsToShow: 5,
+        slidesPerView: 5,
     },
     576: {
-        itemsToShow: 4,
+        slidesPerView: 4,
     },
     480: {
-        itemsToShow: 3,
+        slidesPerView: 3,
     },
     0: {
-        itemsToShow: 2,
+        slidesPerView: 2,
     },
 });
 </script>
 
 
-<style scoped>
+<style >
 .category-item {
     width: 100%;
+}
+
+.categories-container .swiper-button-prev,
+.categories-container .swiper-button-next {
+    top: 50% !important;
+}
+
+.categories-container .swiper-pagination-horizontal {
+    top: 90% !important;
+    height: fit-content;
+    position: absolute;
+}
+
+.categories-container .swiper-pagination-bullet-active {
+    background: blue !important;
 }
 </style>

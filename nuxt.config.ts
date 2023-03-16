@@ -1,10 +1,16 @@
 export default defineNuxtConfig({
-  modules: ["@pinia/nuxt"],
+  modules: ["@pinia/nuxt", "nuxt-swiper"],
+  swiper: {
+    // Swiper options
+    //----------------------
+    // styleLang: 'css',
+  },
   routeRules: {
     "/profile": { ssr: false },
     "/profile/**": { ssr: false },
     "/profile/**/**": { ssr: false },
   },
+
   css: ["@/assets/css/custom.css", "@/assets/css/theme.css"],
   build: {
     transpile: ["vue-agile"],
