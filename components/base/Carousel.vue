@@ -21,7 +21,7 @@ const props = withDefaults(defineProps<{
     slideClass?: string,
     baseClass?: string,
     loop?: boolean,
-    effect: 'slide' | 'fade' | 'cube' | 'coverflow' | 'flip' | 'creative' | 'cards',
+    effect?: 'slide' | 'fade' | 'cube' | 'coverflow' | 'flip' | 'creative' | 'cards',
     autoplay?: AutoplayOptions,
     navigation?: NavigationOptions,
     pagination?: PaginationOptions,

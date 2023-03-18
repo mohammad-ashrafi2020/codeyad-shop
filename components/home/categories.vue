@@ -12,7 +12,7 @@
     dynamicBullets: true,
     paginationDisabledClass: '123'
 }" :slideClass="'category-slide'" :breakpoints="breakpoints"
-                    :items="[utilStore.categories[0], utilStore.categories[1], utilStore.categories[2], utilStore.categories[0], utilStore.categories[1], utilStore.categories[2], utilStore.categories[0], utilStore.categories[1], utilStore.categories[2]]">
+                    :items="utilStore.categories">
                     <template #item="{ item }">
                         <div class="category-item">
                             <nuxt-link :to="`/search/category-${item.slug}`">

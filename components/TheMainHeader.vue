@@ -70,9 +70,9 @@
                   <i class="ri-search-2-line"></i>
                 </button>
                 <button class="
-                    btn btn-primary btn-close-search-result btn-action
-                    d-none
-                  ">
+                                btn btn-primary btn-close-search-result btn-action
+                                d-none
+                              ">
                   <i class="ri-close-line"></i>
                 </button>
               </form>
@@ -189,74 +189,21 @@
             <a href="#" class="vertical-menu-btn">دسته بندی کالاها <i class="ri-apps-fill icon"></i></a>
             <div class="vertical-menu-items">
               <ul>
-                <li class="mega-menu-category show">
-                  <a href="#">کالای دیجیتال</a>
-                  <ul class="mega-menu">
-                    <li class="parent"><a href="#">لوازم جانبی گوشی</a></li>
-                    <li><a href="#">کیف و کاور گوشی</a></li>
-                    <li><a href="#">پاور بانک (شارژر همراه)</a></li>
-                    <li><a href="#">پایه نگهدارنده گوشی</a></li>
-                    <li class="parent"><a href="#">گوشی موبایل</a></li>
-                    <li><a href="#">سامسونگ</a></li>
-                    <li><a href="#">هوآوی</a></li>
-                    <li><a href="#">اپل</a></li>
-                    <li><a href="#">شیائومی</a></li>
-                    <li><a href="#">آنر</a></li>
-                    <li><a href="#">نوکیا</a></li>
-                    <li class="parent"><a href="#">واقعیت مجازی</a></li>
-                    <li class="parent">
-                      <a href="#">مچ بند و ساعت هوشمند</a>
-                    </li>
-                    <li class="parent"><a href="#">لوازم جانبی گوشی</a></li>
-                    <li><a href="#">کیف و کاور گوشی</a></li>
-                    <li><a href="#">پاور بانک (شارژر همراه)</a></li>
-                    <li><a href="#">پایه نگهدارنده گوشی</a></li>
-                    <li class="parent"><a href="#">گوشی موبایل</a></li>
-                    <li><a href="#">سامسونگ</a></li>
-                    <li><a href="#">هوآوی</a></li>
-                    <li><a href="#">اپل</a></li>
-                    <li><a href="#">شیائومی</a></li>
-                    <li><a href="#">آنر</a></li>
-                    <li><a href="#">نوکیا</a></li>
-                    <li class="parent"><a href="#">واقعیت مجازی</a></li>
-                    <li class="parent">
-                      <a href="#">مچ بند و ساعت هوشمند</a>
-                    </li>
+                <li class="mega-menu-category" v-for="item in utilStore.categories">
+                  <nuxt-link :to="`/search/category-${item.slug}`">{{ item.title }}</nuxt-link>
+                  <ul class="mega-menu" v-if="item.childs.length > 0">
+
+                    <template v-for="child in item.childs">
+                      <li class="parent">
+                        <nuxt-link :to="`/search/category-${child.slug}`">{{ child.title }}</nuxt-link>
+                      </li>
+                      <li v-for="subChild in child.childs">
+                        <nuxt-link :to="`/search/category-${subChild.slug}`">{{ subChild.title }}</nuxt-link>
+                      </li>
+                    </template>
+
                   </ul>
                 </li>
-                <li class="mega-menu-category">
-                  <a href="#">مد و پوشاک</a>
-                  <ul class="mega-menu">
-                    <li class="parent"><a href="#">لوازم جانبی گوشی</a></li>
-                    <li><a href="#">کیف و کاور گوشی</a></li>
-                    <li><a href="#">پاور بانک (شارژر همراه)</a></li>
-                    <li><a href="#">پایه نگهدارنده گوشی</a></li>
-                    <li class="parent"><a href="#">گوشی موبایل</a></li>
-                    <li><a href="#">سامسونگ</a></li>
-                    <li><a href="#">هوآوی</a></li>
-                    <li><a href="#">اپل</a></li>
-                    <li><a href="#">شیائومی</a></li>
-                    <li><a href="#">آنر</a></li>
-                    <li><a href="#">نوکیا</a></li>
-                    <li class="parent"><a href="#">لوازم جانبی گوشی</a></li>
-                    <li><a href="#">کیف و کاور گوشی</a></li>
-                    <li><a href="#">پاور بانک (شارژر همراه)</a></li>
-                    <li><a href="#">پایه نگهدارنده گوشی</a></li>
-                    <li class="parent"><a href="#">گوشی موبایل</a></li>
-                    <li><a href="#">سامسونگ</a></li>
-                    <li><a href="#">هوآوی</a></li>
-                    <li><a href="#">اپل</a></li>
-                    <li><a href="#">شیائومی</a></li>
-                    <li><a href="#">آنر</a></li>
-                    <li><a href="#">نوکیا</a></li>
-                  </ul>
-                </li>
-                <li><a href="#">اسباب بازی</a></li>
-                <li><a href="#">زیبایی و سلامت</a></li>
-                <li><a href="#">خانه و آشپزخانه</a></li>
-                <li><a href="#">لوازم تحریر</a></li>
-                <li><a href="#">ورزش و سفر</a></li>
-                <li><a href="#">سوپرمارکت</a></li>
               </ul>
             </div>
           </div>
@@ -285,11 +232,12 @@
 
 <script setup lang="ts">
 import { useAuthStore } from '~~/stores/authStore';
+import { useUtilStore } from '~~/stores/utilStore';
 import { GetUserAvatar } from '~~/utilities/ImageUrls';
 
 const authStore = useAuthStore();
+const utilStore = useUtilStore();
+
 </script>
 
-<style>
-
-</style>
+<style></style>
