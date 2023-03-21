@@ -20,7 +20,6 @@
     <div class="row mb-5">
       <home-banner :banners="data.data.banners" :position="BannerPosition.وسط_صفحه" />
     </div>
-    <!-- start of box -->
     <home-latest-products :products="data.data.latestProduct" />
   </div>
 </template>
@@ -29,7 +28,7 @@
 import { BannerPosition, HomeDataDto } from "~~/models/home/homeDataDto";
 import { FetchApi } from "~~/utilities/CustomFechApi";
 
-const { data, pending } = useAsyncData(
+const { data, pending } =  useAsyncData(
   "main-page",
   () => FetchApi<HomeDataDto>("/Utilities/MainPageData")
 );

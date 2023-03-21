@@ -1,6 +1,6 @@
 <template>
-    <Swiper :space-between="spaceBetween" :navigation="navigation" :pagination="pagination" :wrapperClass="baseClass" :loop="loop"
-        :autoplay="autoplay" dir="rtl" :effect="effect" :modules="modules" :slides-per-view="itemsToShow"
+    <Swiper :space-between="spaceBetween" :navigation="navigation" :pagination="pagination" :wrapperClass="baseClass"
+        :loop="loop" :autoplay="autoplay" dir="rtl" :effect="effect" :modules="modules" :slides-per-view="itemsToShow"
         :breakpoints="breakpoints">
         <SwiperSlide :class="slideClass" v-for="(item, index) in items" :key="index">
             <slot name="item" :item="item" :index="index" />
@@ -9,9 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { SwiperOptions } from "swiper";
 import { AutoplayOptions, NavigationOptions, PaginationOptions, SwiperModule } from "swiper/types";
-import { Carousel, Slide } from "vue3-carousel";
 
 const props = withDefaults(defineProps<{
     items: any[],
@@ -25,7 +23,7 @@ const props = withDefaults(defineProps<{
     autoplay?: AutoplayOptions,
     navigation?: NavigationOptions,
     pagination?: PaginationOptions,
-    spaceBetween?: number
+    spaceBetween?: number,
 }>(), {
     baseClass: "",
     effect: "slide",

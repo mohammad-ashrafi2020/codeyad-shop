@@ -111,7 +111,7 @@ export const useShopCartStore = defineStore("shopCart", () => {
     if (process.server) return;
     if (isLogin()) {
       var result = await GetCurrentOrder();
-      items.value = result.data.items;
+      items.value = result.data?.items ?? [];
       currentOrder.value = result.data;
     } else {
       var data = localStorage.getItem("cart-Items");

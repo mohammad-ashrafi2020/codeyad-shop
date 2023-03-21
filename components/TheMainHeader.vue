@@ -70,9 +70,9 @@
                   <i class="ri-search-2-line"></i>
                 </button>
                 <button class="
-                                btn btn-primary btn-close-search-result btn-action
-                                d-none
-                              ">
+                                  btn btn-primary btn-close-search-result btn-action
+                                  d-none
+                                ">
                   <i class="ri-close-line"></i>
                 </button>
               </form>
@@ -117,56 +117,58 @@
                 <i class="ri-arrow-down-s-fill icon fs-7 text-muted"></i>
               </nuxt-link>
               <div class="user-option--dropdown user-option--dropdown-right">
-                <div class="profile-user-info ui-box">
-                  <template v-if="authStore.isLogin">
-                    <div class="profile-detail">
-                      <div class="d-flex align-items-center">
-                        <div class="profile-avatar me-3">
-                          <base-image :src="GetUserAvatar(authStore.currentUser?.avatarName ?? '')" alt="avatar" />
+                <client-only>
+                  <div class="profile-user-info ui-box">
+                    <template v-if="authStore.isLogin">
+                      <div class="profile-detail">
+                        <div class="d-flex align-items-center">
+                          <div class="profile-avatar me-3">
+                            <base-image :src="GetUserAvatar(authStore.currentUser?.avatarName ?? '')" alt="avatar" />
+                          </div>
+                          <div class="profile-info">
+                            <nuxt-link to="/profile" class="text-decoration-none text-dark fw-bold mb-2">{{
+                              authStore.currentUser?.name
+                            }} {{ authStore.currentUser?.family }}</nuxt-link>
+                            <div class="text-muted fs-7 fw-bold">{{ authStore.currentUser?.phoneNumber }}</div>
+                          </div>
                         </div>
-                        <div class="profile-info">
-                          <nuxt-link to="/profile" class="text-decoration-none text-dark fw-bold mb-2">{{
-                            authStore.currentUser?.name
-                          }} {{ authStore.currentUser?.family }}</nuxt-link>
-                          <div class="text-muted fs-7 fw-bold">{{ authStore.currentUser?.phoneNumber }}</div>
-                        </div>
-                      </div>
-                      <div class="user-options">
-                        <ul>
+                        <div class="user-options">
+                          <ul>
 
-                        </ul>
+                          </ul>
+                        </div>
                       </div>
-                    </div>
-                    <ul class="nav nav-items-with-icon flex-column">
-                      <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="nav-link-icon ri-file-list-3-line"></i> سفارش
-                          های من</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="nav-link-icon ri-copper-coin-fill"></i>
-                          باشگاه مشتریان</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="nav-link-icon ri-logout-box-r-line"></i>
-                          خروج</a>
-                      </li>
-                    </ul>
-                  </template>
-                  <template v-else>
-                    <ul class="nav nav-items-with-icon flex-column">
-                      <li class="nav-item">
-                        <nuxt-link class="nav-link" to="/auth/login">
-                          <i class="nav-link-icon ri-login-box-line"></i>
-                          ورود به سایت</nuxt-link>
-                      </li>
-                      <li class="nav-item">
-                        <nuxt-link class="nav-link" to="/auth/register">
-                          <i class="nav-link-icon ri-user-add-line"></i>
-                          ثبت نام</nuxt-link>
-                      </li>
-                    </ul>
-                  </template>
-                </div>
+                      <ul class="nav nav-items-with-icon flex-column">
+                        <li class="nav-item">
+                          <a class="nav-link" href="#"><i class="nav-link-icon ri-file-list-3-line"></i> سفارش
+                            های من</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#"><i class="nav-link-icon ri-copper-coin-fill"></i>
+                            باشگاه مشتریان</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#"><i class="nav-link-icon ri-logout-box-r-line"></i>
+                            خروج</a>
+                        </li>
+                      </ul>
+                    </template>
+                    <template v-else>
+                      <ul class="nav nav-items-with-icon flex-column">
+                        <li class="nav-item">
+                          <nuxt-link class="nav-link" to="/auth/login">
+                            <i class="nav-link-icon ri-login-box-line"></i>
+                            ورود به سایت</nuxt-link>
+                        </li>
+                        <li class="nav-item">
+                          <nuxt-link class="nav-link" to="/auth/register">
+                            <i class="nav-link-icon ri-user-add-line"></i>
+                            ثبت نام</nuxt-link>
+                        </li>
+                      </ul>
+                    </template>
+                  </div>
+                </client-only>
               </div>
             </div>
             <div class="user-option">

@@ -1,23 +1,21 @@
 <template>
-    <div>
-        <div class="ui-box mb-5">
-            <div class="ui-box-title">جدید ترین محصولات</div>
-            <div class="ui-box-content">
-                <base-carousel class="product-swiper-slider" :spaceBetween="10"
-                    :modules="[SwiperNavigation, SwiperPagination]" :navigation="{
-                        enabled: true,
-                        navigationDisabledClass: '123'
-                    }" :pagination="{
+    <div class="ui-box mb-5">
+        <div class="ui-box-title">جدید ترین محصولات</div>
+        <div class="ui-box-content">
+            <base-carousel class="product-swiper-slider" :spaceBetween="10" :modules="[SwiperNavigation, SwiperPagination]"
+                :navigation="{
+                    enabled: true,
+                    navigationDisabledClass: '123'
+                }" :pagination="{
     enabled: true,
     clickable: true,
     dynamicBullets: true,
     paginationDisabledClass: '123'
 }" :breakpoints="breakpoints" :items="products" slideClass="swiper-slide main-swiper-slide">
-                    <template #item="{ item }">
-                        <ProductCard :product="item" />
-                    </template>
-                </base-carousel>
-            </div>
+                <template #item="{ item }">
+                    <ProductCard :product="item" />
+                </template>
+            </base-carousel>
         </div>
     </div>
 </template>
@@ -38,12 +36,15 @@ const breakpoints = {
     },
     768: {
         slidesPerView: 3,
+        spaceBetween: 10,
     },
     576: {
         slidesPerView: 2,
+        spaceBetween: 10,
     },
     480: {
         slidesPerView: 1,
+        spaceBetween: 8,
     },
 };
 </script>
