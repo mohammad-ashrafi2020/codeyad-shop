@@ -8,7 +8,8 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "nuxt": "^3.0.0"
+    "@nuxt/image-edge": "^1.0.0-27990059.c3f31ce",
+    "nuxt": "^3.3.1"
   },
   "dependencies": {
     "@pinia/nuxt": "^0.4.2",

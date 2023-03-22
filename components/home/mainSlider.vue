@@ -13,7 +13,7 @@
 }" :itemsToShow="1">
     <template #item="{ item }">
       <a class="carousel__item" :href="item.link">
-        <img :src="GetSliderImage(item.imageName)" :alt="item.title" />
+        <base-image :src="GetSliderImage(item.imageName)" :alt="item.title" />
       </a>
     </template>
   </BaseCarousel>

@@ -1,7 +1,7 @@
 <template>
   <div v-if="(pending || data == null)">Loading ...</div>
   <div v-else>
-    <home-banner :banners="data.data.banners" :position="BannerPosition.بالای_اسلایدر" />
+    <home-banner :banners="data.data.banners" :position="BannerPosition.بالای_اسلایدر"  />
     <div class="row mb-5">
       <div class="col-lg-8 mb-lg-0 mb-4">
         <home-main-slider :data="data.data.sliders" />
