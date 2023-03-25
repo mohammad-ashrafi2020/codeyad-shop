@@ -16,6 +16,7 @@
     "lodash": "^4.17.21",
     "nuxt-swiper": "^1.0.1",
     "vee-validate": "^4.6.10",
+    "vue-skeletor": "^1.0.6",
     "vue-toastification": "^2.0.0-rc.5",
     "vue3-carousel": "^0.2.0",
     "yup": "^0.32.11"

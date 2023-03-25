@@ -1,43 +1,51 @@
 <template>
     <div class="user-address-items">
-        <div :class="['user-address-item', { 'active': item.activeAddress },
-            { 'disabled': loading }]" v-for="item in addresses" :key="item.id">
-            <div class="custom-radio-box">
-                <label for="userAddress01" class="custom-radio-box-label" @click.self="setActiveAddress(item.id)"
-                    :data-placeholder="item.activeAddress ? 'آدرس پیش فرض من است' : 'انتخاب به عنوان آدرس پیش فرض'">
-
-                    <span class="d-block user-address-recipient mb-2">{{ item.shire }}، {{ item.city }}
-                    </span>
-                    <span class="d-block user-contact-items fa-num mb-3">
-                        <span class="user-contact-item">
-                            <i class="ri-mail-line icon"></i>
-                            <span class="value">{{ item.nationalCode }}</span>
-                        </span>
-                        <span class="user-contact-item">
-                            <i class="ri-phone-line icon"></i>
-                            <span class="value">{{ item.phoneNumber }}</span>
-                        </span>
-                        <span class="user-contact-item">
-                            <i class="ri-user-line icon"></i>
-                            <span class="value">{{ item.name }} {{ item.family }}</span>
-                        </span>
-                    </span>
-                    <span class="d-flex align-items-center justify-content-end">
-                        <a href="#" class="link border-bottom-0 fs-7 fw-bold"
-                            data-remodal-target="remove-from-addresses-modal" @click="openDeleteModal(item.id)">حذف</a>
-                        <span class="text-secondary mx-2">|</span>
-                        <a href="#" @click="editAddress(item)" class="link border-bottom-0 fs-7 fw-bold">ویرایش</a>
-                    </span>
-                </label>
+        <template v-if="initLoading">
+            <div class="user-address-item" v-for="item in [1, 2, 3]">
+                <base-skeleton-loading height="200px" />
             </div>
-        </div>
+        </template>
+        <template v-else>
+            <div :class="['user-address-item', { 'active': item.activeAddress },
+                { 'disabled': loading }]" v-for="item in addresses" :key="item.id">
+                <div class="custom-radio-box">
+                    <label for="userAddress01" class="custom-radio-box-label" @click.self="setActiveAddress(item.id)"
+                        :data-placeholder="item.activeAddress ? 'آدرس پیش فرض من است' : 'انتخاب به عنوان آدرس پیش فرض'">
 
-        <div class="user-address-item user-add-address-btn-container">
-            <button class="user-add-address-btn" @click="isOpenCreateModal = true">
-                <i class="ri-add-line icon"></i>
-                <span>آدرس جدید</span>
-            </button>
-        </div>
+                        <span class="d-block user-address-recipient mb-2">{{ item.shire }}، {{ item.city }}
+                        </span>
+                        <span class="d-block user-contact-items fa-num mb-3">
+                            <span class="user-contact-item">
+                                <i class="ri-mail-line icon"></i>
+                                <span class="value">{{ item.nationalCode }}</span>
+                            </span>
+                            <span class="user-contact-item">
+                                <i class="ri-phone-line icon"></i>
+                                <span class="value">{{ item.phoneNumber }}</span>
+                            </span>
+                            <span class="user-contact-item">
+                                <i class="ri-user-line icon"></i>
+                                <span class="value">{{ item.name }} {{ item.family }}</span>
+                            </span>
+                        </span>
+                        <span class="d-flex align-items-center justify-content-end">
+                            <a href="#" class="link border-bottom-0 fs-7 fw-bold"
+                                data-remodal-target="remove-from-addresses-modal" @click="openDeleteModal(item.id)">حذف</a>
+                            <span class="text-secondary mx-2">|</span>
+                            <a href="#" @click="editAddress(item)" class="link border-bottom-0 fs-7 fw-bold">ویرایش</a>
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <div class="user-address-item user-add-address-btn-container">
+                <button class="user-add-address-btn" @click="isOpenCreateModal = true">
+                    <i class="ri-add-line icon"></i>
+                    <span>آدرس جدید</span>
+                </button>
+            </div>
+        </template>
+
+
         <base-modal v-model="isOpenCreateModal" title="افزودن آدرس جدید">
             <profile-addresses-add @close-modal="refreshData" />
         </base-modal>
@@ -64,6 +72,7 @@ const isOpenEditModal = ref(false);
 const isOpenDeleteModal = ref(false);
 
 const emits = defineEmits(['selectedAddress']);
+const initLoading = ref(false);
 
 const selectedAddressId = ref(0);
 const addresses: Ref<AddressDto[]> = ref([]);
@@ -86,9 +95,13 @@ const editAddress = (address: AddressDto) => {
     isOpenEditModal.value = true;
 }
 const getAddresses = async () => {
+    initLoading.value = true;
+
     var result = await GetAddressList();
+    initLoading.value = false;
     addresses.value = result.data;
     emits('selectedAddress', addresses.value.find(f => f.activeAddress))
+
 }
 const deleteAddress = async () => {
     if (selectedAddressId.value == 0)

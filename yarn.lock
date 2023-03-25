@@ -4919,6 +4919,11 @@ vue-router@^4.1.6:
   dependencies:
     "@vue/devtools-api" "^6.4.5"
 
+vue-skeletor@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/vue-skeletor/-/vue-skeletor-1.0.6.tgz#ec218ee84335cf5cc069ed0c966de2a7e9cbe704"
+  integrity sha512-ER4vHlFSXCW3ixK2DlczUE6CZliHsn4d2TvZ9/26C6Oq8zoyEY23BsqweMPtF8QULSz1+G5m2New1BwKNVOZhQ==
+
 vue-toastification@^2.0.0-rc.5:
   version "2.0.0-rc.5"
   resolved "https://registry.yarnpkg.com/vue-toastification/-/vue-toastification-2.0.0-rc.5.tgz#92798604d806ae473cfb76ed776fae294280f8f8"
