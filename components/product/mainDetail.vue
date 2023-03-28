@@ -7,8 +7,7 @@
                         <div class="product-options">
                             <ul>
                                 <li>
-                                    <a href="#" data-remodal-target="share-modal"><i
-                                            class="ri-share-forward-fill"></i></a>
+                                    <a href="#" data-remodal-target="share-modal"><i class="ri-share-forward-fill"></i></a>
                                 </li>
                             </ul>
                         </div>
@@ -19,10 +18,9 @@
                             </div>
                             <div class="gallery-thumbs" v-if="productDto.images.length ?? 0 > 0">
                                 <ul>
-                                    <li v-for="(item, index) in productDto.images" :key="index"
-                                        data-fancybox="gallery-a" :data-src="GetProductGalleryImage(item.imageName)">
-                                        <base-image :src="GetProductGalleryImage(item.imageName)"
-                                            :alt="productDto.title" />
+                                    <li v-for="(item, index) in productDto.images" :key="index" data-fancybox="gallery-a"
+                                        :data-src="GetProductGalleryImageFromDomain(item.imageName)">
+                                        <base-image :src="GetProductGalleryImage(item.imageName)" :alt="productDto.title" />
                                     </li>
 
                                 </ul>
@@ -31,7 +29,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-5 col-lg-4 col-md-7 mb-lg-0 mb-4">
+            <div :class="isShowSideBar?'col-xl-5 col-lg-4 col-md-7 mb-lg-0 mb-4':'col-xl-8 col-lg-8 col-md-7 mb-lg-0 mb-4'">
                 <h1 class="product-title">{{ productDto.title }}</h1>
                 <div class="product-en mb-3">
                     <span>{{ productDto.slug }}</span>
@@ -52,8 +50,7 @@
                         <span class="text-muted fs-7">({{ splitNumber(singleProductDto.commentsCount) }})</span>
                     </span>
                 </div>
-                <base-show-more showText="بیشتر بخوانید" close-text="بستن"
-                    v-if="productDto.specifications.length ?? 0 > 0">
+                <base-show-more showText="بیشتر بخوانید" close-text="بستن" v-if="productDto.specifications.length ?? 0 > 0">
                     <div class="product-params">
                         <ul>
                             <li v-for="(item, index) in productDto.specifications.slice(0, 5)" :key="index">
@@ -80,7 +77,7 @@
                 </div>
                 <!-- end of product-detail -->
             </div>
-            <div class="col-xl-3 col-lg-4">
+            <div class="col-xl-3 col-lg-4" v-if="isShowSideBar">
                 <div class="product-seller-info ui-box" v-if="inventories.length >= 1">
                     <div class="seller-info-changeable">
                         <div class="product-seller-counter" v-if="inventories.length > 1">
@@ -172,20 +169,19 @@
 
 <script setup lang="ts">
 import { InventoryDto, ProductDto, SingleProductDto } from "~~/models/products/singleProductDto";
-import { GetProductGalleryImage, GetProductImage } from "~~/utilities/ImageUrls";
+import { GetProductGalleryImage, GetProductGalleryImageFromDomain, GetProductImage } from "~~/utilities/ImageUrls";
 import orderBy from "lodash/orderBy";
 import { splitNumber } from "~~/utilities/numberUtils";
 
 const props = defineProps<{
     singleProductDto: SingleProductDto,
     productDto: ProductDto,
-    inventories: InventoryDto[]
+    inventories: InventoryDto[],
+    isShowSideBar: boolean
 }>();
 
 const selectedInventory = orderBy(props.inventories, "price", "asc")[0];
 const discount = (selectedInventory.price * selectedInventory.discountPercentage) / 100;
 </script>
 
-<style>
-
-</style>
+<style></style>

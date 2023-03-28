@@ -8,10 +8,28 @@
       </div>
     </main>
     <the-footer />
+    <base-modal v-model="utilStore.isOpenFastShowProductModal">
+      <the-product-section />
+
+      <template #footer>
+        <button class="btn btn-sm btn-outline-light px-3 me-2" @click="utilStore.closeProductModal">بستن</button>
+        <button @click="showProduct" class="btn btn-sm btn-primary px-3">دیدن محصول</button>
+      </template>
+    </base-modal>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useUtilStore } from '~~/stores/utilStore';
+
+
+const router = useRouter();
+
+const showProduct = async () => {
+  await router.push('/product/' + utilStore.product?.productDto.slug)
+  utilStore.closeProductModal();
+}
+const utilStore = useUtilStore();
 useHead({
   link: [
     { rel: "stylesheet", href: "/css/dependencies.css" },
@@ -40,5 +58,4 @@ useHead({
 });
 </script>
 
-<style>
-</style>
+<style></style>

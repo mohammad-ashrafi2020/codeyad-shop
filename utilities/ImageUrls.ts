@@ -14,7 +14,10 @@ export const GetUserAvatar = (imageName: string): string => {
   return "codeyad/images/users/avatar/" + imageName;
 };
 export const GetProductGalleryImage = (imageName: string): string => {
+  return "codeyad/images/products/gallery/" + imageName;
+};
+export const GetProductGalleryImageFromDomain = (imageName: string): string => {
   return (
-    "codeyad/images/products/gallery/" + imageName
+    "https://shop-api.codeyad-project.ir/images/products/gallery/" + imageName
   );
 };

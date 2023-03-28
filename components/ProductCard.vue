@@ -38,14 +38,10 @@
                             })"><i class="ri-shopping-cart-line"></i></a>
                         </li>
                         <li>
-                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title=""
-                                data-bs-original-title="مشاهده سریع" aria-label="مشاهده سریع"
-                                data-remodal-target="quick-view-modal"><i class="ri-search-line"></i></a>
-                        </li>
-                        <li>
-                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title=""
-                                data-bs-original-title="افزودن به علاقمندی" aria-label="افزودن به علاقمندی"><i
-                                    class="ri-heart-3-line"></i></a>
+                            <a href="#" @click="utilStore.openProductModal(product.slug)" data-bs-toggle="tooltip"
+                                data-bs-placement="top" title="مشاهده سریع">
+                                <i class="ri-search-line"></i>
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -61,13 +57,14 @@
 <script setup lang="ts">
 import { ProductCardDto } from '~~/models/ProductCard';
 import { useShopCartStore } from '~~/stores/shopCartStore';
+import { useUtilStore } from '~~/stores/utilStore';
 import { GetProductImage } from '~~/utilities/ImageUrls';
 import { splitNumber } from '~~/utilities/numberUtils';
 
 const props = defineProps<{
     product: ProductCardDto,
 }>();
-
+const utilStore = useUtilStore();
 const shopCartStore = useShopCartStore();
 
 const url = `/product/${props.product.slug}`;

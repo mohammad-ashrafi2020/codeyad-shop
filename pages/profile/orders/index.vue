@@ -22,12 +22,9 @@
                                     </td>
                                     <td class="fa-num text-muted">
                                         <base-skeleton-loading height="7px" width="50px" style="margin: auto;" />
-
                                     </td>
-
                                     <td class="fa-num fs-6 fw-bold">
                                         <base-skeleton-loading height="7px" width="50px" style="margin: auto;" />
-
                                     </td>
                                     <td>
                                         <base-skeleton-loading height="7px" width="60px" style="margin: auto;" />
