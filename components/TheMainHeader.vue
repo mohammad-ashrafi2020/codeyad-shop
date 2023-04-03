@@ -223,7 +223,7 @@
               <a class="nav-link" href="#">تماس با ما</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">درباره ما</a>
+              <nuxt-link class="nav-link" to="/about-us">درباره ما</nuxt-link>
             </li>
           </ul>
         </div>

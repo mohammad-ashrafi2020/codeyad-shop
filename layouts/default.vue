@@ -31,13 +31,6 @@ const showProduct = async () => {
 }
 const utilStore = useUtilStore();
 useHead({
-  link: [
-    { rel: "stylesheet", href: "/css/dependencies.css" },
-    {
-      rel: "stylesheet",
-      href: "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css",
-    },
-  ],
   script: [
     { src: "/js/dependencies/jquery-3.6.0.min.js", body: true },
     { src: "/js/dependencies/bootstrap.bundle.min.js", body: true },

@@ -41,9 +41,6 @@
 </template>
 
 <script setup lang="ts">
-useHead({
-  link: [{ rel: "stylesheet", href: "/css/dependencies.css" }],
-});
 </script>
 
 <style>
