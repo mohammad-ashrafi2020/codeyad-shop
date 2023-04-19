@@ -29,7 +29,7 @@
         </nav>
         <product-main-detail :product-dto="result.data.productDto" :single-product-dto="result.data"
             :inventories="result.data.inventories" :is-show-side-bar="true" />
-        <product-sellers :inventories="result.data.inventories" />
+        <product-sellers :product-dto="result.data.productDto"  :inventories="result.data.inventories" />
         <product-detail :single-product-dto="result.data" />
     </div>
 </template>

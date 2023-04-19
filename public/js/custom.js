@@ -34,3 +34,7 @@ function InitRateSlider() {
 function getRateSliderValue() {
   return $("#rateSlider").bootstrapSlider("getValue");
 }
+
+function spyScroll(){
+  $('body').scrollspy()
+}

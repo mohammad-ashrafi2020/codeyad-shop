@@ -1,8 +1,8 @@
 <template>
-    <div class="row">
+    <div class="row" data-spy="scroll" data-target="#tabs">
         <div class="col-xl-9 col-lg-8">
             <div class="ui-sticky ui-sticky-top mb-4">
-                <div class="product-tabs">
+                <div class="product-tabs" id="tabs">
                     <ul class="nav nav-pills">
                         <li class="nav-item">
                             <a class="nav-link active" href="#scrollspyHeading1" data-scroll="scrollspyHeading1">نقد و
@@ -45,8 +45,7 @@
                     </div>
                 </base-show-more>
             </div>
-            <div class="product-tab-content product-comments tab-content border-bottom pb-2 mb-4"
-                id="scrollspyHeading4">
+            <div class="product-tab-content product-comments tab-content border-bottom pb-2 mb-4" id="scrollspyHeading4">
                 <product-comments :single-product-dto="singleProductDto" />
             </div>
         </div>
@@ -85,8 +84,20 @@
                         <span class="price-value ">{{ splitNumber(selectedInventory.price - discount) }}</span>
                         <span class="currency ms-1">تومان</span>
                     </div>
-                    <a href="#" class="btn btn-block btn-primary fw-bold">افزودن به
-                        سبد خرید</a>
+                    <button @click="shopCartStore.AddItem({
+                        count: 1,
+                        creationDate: new Date(),
+                        id: 1,
+                        inventoryId: selectedInventory.id,
+                        orderId: 0,
+                        price: selectedInventory.price - discount,
+                        productImageName: productDto.imageName,
+                        productSlug: productDto.slug,
+                        productTitle: productDto.title,
+                        shopName: selectedInventory.shopName,
+                        totalPrice: selectedInventory.price - discount
+                    })" class="btn btn-block btn-primary fw-bold">افزودن به
+                        سبد خرید</button>
                 </div>
             </div>
         </div>
@@ -96,12 +107,12 @@
 <script setup lang="ts">
 import orderBy from "lodash/orderBy";
 import { InventoryDto, ProductDto, SingleProductDto } from "~~/models/products/singleProductDto";
+import { useShopCartStore } from "~~/stores/shopCartStore";
 import { GetProductImage } from "~~/utilities/ImageUrls";
 import { splitNumber } from "~~/utilities/numberUtils";
 
 
 const props = defineProps<{
-
     singleProductDto: SingleProductDto,
 }>();
 
@@ -110,9 +121,13 @@ const inventories: InventoryDto[] = props.singleProductDto.inventories;
 
 const selectedInventory = orderBy(inventories, "price", "asc")[0];
 const discount = (selectedInventory.price * selectedInventory.discountPercentage) / 100;
+const shopCartStore = useShopCartStore();
 
+onMounted(() => {
+    setTimeout(() => {
+        spyScroll();
+    }, 1000);
+})
 </script>
 
-<style>
-
-</style>
+<style></style>

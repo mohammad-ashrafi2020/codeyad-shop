@@ -29,7 +29,7 @@
                     </div>
                 </div>
             </div>
-            <div :class="isShowSideBar?'col-xl-5 col-lg-4 col-md-7 mb-lg-0 mb-4':'col-xl-8 col-lg-8 col-md-7 mb-lg-0 mb-4'">
+            <div :class="isShowSideBar ? 'col-xl-5 col-lg-4 col-md-7 mb-lg-0 mb-4' : 'col-xl-8 col-lg-8 col-md-7 mb-lg-0 mb-4'">
                 <h1 class="product-title">{{ productDto.title }}</h1>
                 <div class="product-en mb-3">
                     <span>{{ productDto.slug }}</span>
@@ -82,7 +82,7 @@
                     <div class="seller-info-changeable">
                         <div class="product-seller-counter" v-if="inventories.length > 1">
                             <span class="label">فروشنده</span>
-                            <a href="#" class="anchor-link link border-bottom-0 fs-7 fa-num">{{ inventories.length - 1
+                            <a href="#sellers" class="anchor-link link border-bottom-0 fs-7 fa-num">{{ inventories.length - 1
                             }}
                                 فروشنده
                                 دیگر</a>
@@ -137,7 +137,19 @@
                         </div>
                     </div>
                     <div class="product-seller--add-to-cart">
-                        <base-button w-full>
+                        <base-button w-full @click="shopCartStore.AddItem({
+                            count: 1,
+                            creationDate: new Date(),
+                            id: 1,
+                            inventoryId: selectedInventory.id,
+                            orderId: 0,
+                            price: selectedInventory.price - discount,
+                            productImageName: productDto.imageName,
+                            productSlug: productDto.slug,
+                            productTitle: productDto.title,
+                            shopName: selectedInventory.shopName,
+                            totalPrice: selectedInventory.price - discount
+                        })">
                             افزودن به سبد خرید
                         </base-button>
                     </div>
@@ -172,6 +184,7 @@ import { InventoryDto, ProductDto, SingleProductDto } from "~~/models/products/s
 import { GetProductGalleryImage, GetProductGalleryImageFromDomain, GetProductImage } from "~~/utilities/ImageUrls";
 import orderBy from "lodash/orderBy";
 import { splitNumber } from "~~/utilities/numberUtils";
+import { useShopCartStore } from "~~/stores/shopCartStore";
 
 const props = defineProps<{
     singleProductDto: SingleProductDto,
@@ -182,6 +195,7 @@ const props = defineProps<{
 
 const selectedInventory = orderBy(props.inventories, "price", "asc")[0];
 const discount = (selectedInventory.price * selectedInventory.discountPercentage) / 100;
+const shopCartStore = useShopCartStore();
 </script>
 
 <style></style>
