@@ -30,10 +30,7 @@
         parents.find(".search-result-container").removeClass("show");
       }
     );
-    $(".toggle-navigation").on("click", function () {
-      $(".navigation").addClass("toggle");
-      $(".navigation-overlay").fadeIn(100);
-    });
+   
     $(".navigation .toggle-submenu").on("click", function (event) {
       event.preventDefault();
       $(this).siblings(".submenu").addClass("toggle");
@@ -41,12 +38,6 @@
     $(".navigation .close-submenu").on("click", function (event) {
       event.preventDefault();
       $(this).parent(".submenu").removeClass("toggle");
-    });
-    $(".navigation-overlay, .close-navigation").on("click", function (event) {
-      event.preventDefault();
-      $(".navigation").removeClass("toggle");
-      $(".navigation .submenu").removeClass("toggle");
-      $(".navigation-overlay").fadeOut(100);
     });
   };
   /*====== end Header ======*/

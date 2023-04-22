@@ -3,22 +3,22 @@
     <div class="page-header-responsive-row mb-3">
       <div class="d-flex align-items-center">
         <div class="navigation-container">
-          <button class="toggle-navigation"></button>
-          <div class="navigation">
+          <button class="toggle-navigation" @click="isOpenMenu = true"></button>
+          <div :class="['navigation', { 'toggle': isOpenMenu }]">
             <div class="navigation-header">
               <div class="logo-container logo-box">
-                <nuxt-link to="/" class="logo">
+                <a @click="changeRoute('/')" class="logo">
                   <img src="/images/logo.svg" width="120" alt="" />
                   <span class="logo-text">بررسی،انتخاب و خرید آنلاین</span>
-                </nuxt-link>
+                </a>
               </div>
             </div>
             <div class="navigation-body">
               <ul class="menu">
                 <li v-for="item in utilStore.categories">
-                  <nuxt-link v-if="item.childs.length == 0" :to="`/search/category-${item.slug}`">
+                  <a @click="changeRoute(`/search/category-${item.slug}`)" v-if="item.childs.length == 0">
                     <span>{{ item.title }}</span>
-                  </nuxt-link>
+                  </a>
                   <a v-else class="toggle-submenu">
                     <span>{{ item.title }}</span>
                   </a>
@@ -29,9 +29,9 @@
                     </li>
 
                     <li v-for="child in item.childs">
-                      <nuxt-link v-if="child.childs.length == 0" :to="`/search/category-${child.slug}`">
+                      <a @click="changeRoute(`/search/category-${child.slug}`)" v-if="child.childs.length == 0">
                         {{ child.title
-                        }}</nuxt-link>
+                        }}</a>
                       <a v-else class="toggle-submenu">{{ child.title
                       }}</a>
                       <ul class="submenu" v-if="child.childs.length > 0">
@@ -41,9 +41,8 @@
                         </li>
 
                         <li v-for="subChild in child.childs">
-                          <nuxt-link :to="`/search/category-${subChild.slug}`">{{ subChild.title }}</nuxt-link>
+                          <a @click="changeRoute(`/search/category-${subChild.slug}`)">{{ subChild.title }}</a>
                         </li>
-
                       </ul>
                     </li>
                   </ul>
@@ -51,7 +50,8 @@
               </ul>
             </div>
           </div>
-          <div class="navigation-overlay"></div>
+          <div class="navigation-overlay" @click="closeMenu" :style="{ 'display': isOpenMenu ? 'block' : 'none' }">
+          </div>
         </div>
         <div class="logo">
           <a href="#">
@@ -102,6 +102,16 @@ const utilStore = useUtilStore();
 const search = ref("");
 const router = useRouter();
 
+const isOpenMenu = ref(false);
+
+const changeRoute = (url: string) => {
+  closeMenu();
+  router.push(url);
+}
+const closeMenu = () => {
+  CloseSubMenu();
+  isOpenMenu.value = false;
+}
 const searchProduct = () => {
   router.push('/search?q=' + search.value);
 }

@@ -38,3 +38,6 @@ function getRateSliderValue() {
 function spyScroll(){
   $('body').scrollspy()
 }
+function CloseSubMenu(){
+  $(".navigation .submenu").removeClass("toggle");
+}
