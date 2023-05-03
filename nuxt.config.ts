@@ -1,10 +1,10 @@
 export default defineNuxtConfig({
   modules: ["@pinia/nuxt", "nuxt-swiper", "@nuxt/image-edge"],
-  routeRules: {
-    "/profile": { ssr: false },
-    "/profile/**": { ssr: false },
-    "/profile/**/**": { ssr: false },
-  },
+  // routeRules: {
+  //   "/profile": { ssr: false },
+  //   "/profile/**": { ssr: false },
+  //   "/profile/**/**": { ssr: false },
+  // },
 
   css: ["@/assets/css/custom.css", "@/assets/css/theme.css"],
   build: {

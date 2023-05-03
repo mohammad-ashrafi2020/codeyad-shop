@@ -71,7 +71,12 @@ const loginUser = async (data: any, formEvent: any) => {
     localStorage.setItem("auth-data", JSON.stringify(result.data));
     authStore.SetCurrentUserValue();
     cartStore.syncRemoteCart();
-    await router.push("/");
+    var returnTo = router.currentRoute.value.query.returnTo?.toString();
+    if (returnTo) {
+      await router.push(returnTo);
+    } else {
+      await router.push("/");
+    }
   } else {
     formEvent.setFieldError(
       "phoneNumber",

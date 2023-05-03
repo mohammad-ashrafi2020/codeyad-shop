@@ -39,35 +39,11 @@
                             های من</nuxt-link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="nav-link-icon ri-heart-3-line"></i> لیست
-                            ها</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="nav-link-icon ri-chat-1-line"></i>
-                            نظرات</a>
-                    </li>
-                    <li class="nav-item">
                         <nuxt-link class="nav-link" to="/profile/address"><i class="nav-link-icon ri-map-pin-line"></i>
                             نشانی
                             ها</nuxt-link>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="nav-link-icon ri-gift-line"></i> کارت های
-                            هدیه</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="nav-link-icon ri-notification-line"></i>
-                            پیغام ها</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="nav-link-icon ri-time-line"></i> بازدید
-                            های
-                            اخیر</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="nav-link-icon ri-user-line"></i> اطلاعات
-                            حساب</a>
-                    </li>
+      
                     <li class="nav-item">
                         <a class="nav-link" href="#"><i class="nav-link-icon ri-logout-box-r-line"></i>
                             خروج</a>

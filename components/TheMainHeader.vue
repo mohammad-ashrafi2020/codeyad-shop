@@ -56,12 +56,8 @@
                       </div>
                       <ul class="nav nav-items-with-icon flex-column">
                         <li class="nav-item">
-                          <a class="nav-link" href="#"><i class="nav-link-icon ri-file-list-3-line"></i> سفارش
-                            های من</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#"><i class="nav-link-icon ri-copper-coin-fill"></i>
-                            باشگاه مشتریان</a>
+                          <nuxt-link class="nav-link" to="/profile/orders"><i class="nav-link-icon ri-file-list-3-line"></i> سفارش
+                            های من</nuxt-link>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" href="#"><i class="nav-link-icon ri-logout-box-r-line"></i>
