@@ -1,58 +1,5 @@
 <template>
   <header class="page-header d-md-block d-none">
-    <div class="page-header--top">
-      <div class="container">
-        <div class="d-flex align-items-center justify-content-between">
-          <div class="page-header--top-right">
-            <div class="notification-container notification-light">
-              <div class="swiper notification-swiper-slider mb-5">
-                <!-- Additional required wrapper -->
-                <div class="swiper-wrapper">
-                  <!-- Slides -->
-                  <div class="swiper-slide">
-                    <div class="notification-item">
-                      <div class="notification-item--text">خوش آمدید 👋</div>
-                    </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="notification-item">
-                      <div class="notification-item--text">
-                        زمستان امسال با تخفیفات ويژه 😍
-                      </div>
-                    </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="notification-item">
-                      <div class="notification-item--text">
-                        به باشگاه مشتریان ما بپیوندید 😎
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="page-header--top-left">
-            <ul class="nav nav-light justify-content-end">
-              <li class="nav-item">
-                <a class="nav-link" href="#">وبلاگ</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">پرسش های متداول</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">تماس با ما</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">درباره ما</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- end of page-header-top -->
-    <!-- start of page-header-middle -->
     <div class="page-header--middle">
       <div class="container">
         <div class="d-flex align-items-center justify-content-between">
@@ -76,38 +23,7 @@
                   <i class="ri-close-line"></i>
                 </button>
               </form>
-              <div class="search-result-container">
-                <div class="search-result-tags-container">
-                  <div class="search-result-tags-label">
-                    <i class="ri-fire-line"></i> بیشترین جستجوهای اخیر
-                  </div>
-                  <ul class="search-result-tags">
-                    <li>
-                      <a href="#" class="search-result-tag">گوشی موبایل</a>
-                    </li>
-                    <li>
-                      <a href="#" class="search-result-tag">لوازم خانگی برقی</a>
-                    </li>
-                    <li>
-                      <a href="#" class="search-result-tag">لپ تاپ</a>
-                    </li>
-                    <li>
-                      <a href="#" class="search-result-tag">کنسول بازی</a>
-                    </li>
-                    <li>
-                      <a href="#" class="search-result-tag">دوچرخه</a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="border-bottom my-3"></div>
-                <ul class="search-result-items">
-                  <li><a href="#">گوشی موبایل</a></li>
-                  <li><a href="#">گوشی موبایل شیائومی</a></li>
-                  <li><a href="#">گوشی موبایل سامسونگ</a></li>
-                  <li><a href="#">قاب گوشی موبایل</a></li>
-                  <li><a href="#">گوشی موبایل اپل</a></li>
-                </ul>
-              </div>
+          
             </div>
           </div>
           <div class="user-options">
@@ -171,12 +87,6 @@
                 </client-only>
               </div>
             </div>
-            <div class="user-option">
-              <a href="#" class="user-option-btn user-option-btn--account">
-                <i class="ri-heart-3-fill icon"></i>
-                <span class="counter">۲</span>
-              </a>
-            </div>
             <mini-shop-cart />
           </div>
         </div>
@@ -214,13 +124,7 @@
               <nuxt-link class="nav-link" to="/">خانه</nuxt-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">وبلاگ</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">پرسش های متداول</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">تماس با ما</a>
+              <a class="nav-link" target="_blank" href="https://codeyad-project.ir/">وبلاگ</a>
             </li>
             <li class="nav-item">
               <nuxt-link class="nav-link" to="/about-us">درباره ما</nuxt-link>

@@ -30,15 +30,28 @@ export async function FetchApi<T>(
       return res;
     })
     .catch((e: FetchError) => {
-      return {
-        data: null,
-        isSuccess: false,
-        metaData: {
-          appStatusCode:
-            e.response?._data?.MetaData?.MetaData ?? AppStatusCode.ServerError,
-          message:
-            e.response?._data?.MetaData?.Message ?? "مشکلی در عملیات رخ داده",
-        },
-      };
+      if (e.response?.status == 401) {
+        return {
+          data: null,
+          isSuccess: false,
+          metaData: {
+            appStatusCode: AppStatusCode.UnAuthorize,
+            message:
+              e.response?._data?.MetaData?.Message ?? "مشکلی در عملیات رخ داده",
+          },
+        };
+      } else {
+        return {
+          data: null,
+          isSuccess: false,
+          metaData: {
+            appStatusCode:
+              e.response?._data?.MetaData?.MetaData ??
+              AppStatusCode.ServerError,
+            message:
+              e.response?._data?.MetaData?.Message ?? "مشکلی در عملیات رخ داده",
+          },
+        };
+      }
     });
 }

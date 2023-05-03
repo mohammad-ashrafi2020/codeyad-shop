@@ -65,17 +65,11 @@
             <i class="ri-user-fill icon"></i>
           </a>
         </div>
-        <div class="user-option">
-          <a href="#" class="user-option-btn user-option-btn--account">
-            <i class="ri-heart-3-fill icon"></i>
-            <span class="counter">۲</span>
-          </a>
-        </div>
         <div class="user-option user-option--cart">
-          <a href="#" class="user-option-btn user-option-btn--cart">
+          <nuxt-link to="/cart" class="user-option-btn user-option-btn--cart">
             <i class="ri-shopping-bag-2-fill icon"></i>
-            <span class="counter">۴</span>
-          </a>
+            <span class="counter">{{ cartStore.getTotalItem() }}</span>
+          </nuxt-link>
         </div>
       </div>
     </div>
@@ -96,11 +90,13 @@
 </template>
 
 <script setup lang="ts">
+import { useShopCartStore } from '~~/stores/shopCartStore';
 import { useUtilStore } from '~~/stores/utilStore';
 
 const utilStore = useUtilStore();
 const search = ref("");
 const router = useRouter();
+const cartStore=useShopCartStore();
 
 const isOpenMenu = ref(false);
 
