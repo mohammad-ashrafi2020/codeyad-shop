@@ -24,3 +24,9 @@ export function Login(
     },
   });
 }
+
+export function Logout(): Promise<ApiResponse<undefined>> {
+  return FetchApi("/auth/logout", {
+    method: "DELETE",
+  });
+}

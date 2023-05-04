@@ -43,9 +43,10 @@
                             نشانی
                             ها</nuxt-link>
                     </li>
-      
+
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="nav-link-icon ri-logout-box-r-line"></i>
+                        <a class="nav-link" href="#" @click="authStore.LogoutUser()"><i
+                                class="nav-link-icon ri-logout-box-r-line"></i>
                             خروج</a>
                     </li>
                 </ul>

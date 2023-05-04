@@ -1,10 +1,15 @@
 <template>
     <div class="row">
+        <BaseSeoData v-if="filterResult?.data.categoryDto" :seo-data="filterResult.data.categoryDto.seoData">
 
-        <Head>
-            <Title v-if="searchUtil.getFilterParams().search">{{ searchUtil.getFilterParams().search }}</Title>
-            <Title v-else>جستوجوی محصولات</Title>
-        </Head>
+        </BaseSeoData>
+        <template v-else>
+
+            <Head>
+                <Title v-if="searchUtil.getFilterParams().search">{{ searchUtil.getFilterParams().search }}</Title>
+                <Title v-else>جستوجوی محصولات</Title>
+            </Head>
+        </template>
         <search-sidebar />
         <div class="col-xl-9 col-lg-8 col-md-7">
             <search-breadcrumb :category="filterResult!.data.categoryDto" />
@@ -43,8 +48,8 @@
                                 <div class="ui-box-content">
                                     <div class="row mx-0">
                                         <div v-for="item in filterResult!.data.data" :key="item.id" :class="['product-card-container mb-4',
-                                        { 'col-xl-3 col-lg-4 col-md-6 col-sm-6': productShowType == 0 },
-                                        { 'col-lg-6 col-md-12 col-sm-6': productShowType == 1 }]">
+                                                { 'col-xl-3 col-lg-4 col-md-6 col-sm-6': productShowType == 0 },
+                                                { 'col-lg-6 col-md-12 col-sm-6': productShowType == 1 }]">
                                             <product-card :class="{ 'product-card-horizontal': productShowType == 1 }"
                                                 :product="item" />
                                         </div>
@@ -63,6 +68,7 @@
 
 <script setup lang="ts">
 import { Ref } from 'vue';
+import SeoData from '~~/components/base/SeoData.vue';
 import { useSearch } from '~~/composables/useSearch';
 import { ProductSearchOrderBy } from '~~/models/search/ProductSearchResultDto';
 const search = useSearch();
@@ -78,6 +84,4 @@ watch(() => route.query, () => {
 
 </script>
 
-<style>
-
-</style>
+<style></style>
