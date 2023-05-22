@@ -6,3 +6,4 @@
 آموزش جامع Vue.js و Nuxt Js - پروژه محور
   </a>
   </p>
+  <img src="https://github.com/mohammad-ashrafi2020/codeyad-shop/blob/master/public/images/Screen%20Shot%202023-05-07%20at%202.07.52%20PM.png"/>
