@@ -8,7 +8,7 @@ export default defineNuxtConfig({
 
   css: ["@/assets/css/custom.css", "@/assets/css/theme.css"],
   build: {
-    transpile: ["vue-agile"],
+    transpile: ["vue-toastification"],
   },
   app: {
     pageTransition: {
