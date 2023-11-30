@@ -9,16 +9,20 @@
     "start": "node .output/server/index.mjs"
   },
   "devDependencies": {
-    "@nuxt/image-edge": "^1.0.0-27990059.c3f31ce",
-    "nuxt": "^3.3.1"
+    "nuxt": "^3.8.2"
   },
   "dependencies": {
-    "@pinia/nuxt": "^0.4.2",
+    "@nuxt/image": "^1.1.0",
+    "@pinia/nuxt": "^0.5.1",
     "lodash": "^4.17.21",
-    "nuxt-swiper": "^1.0.1",
+    "nuxt-swiper": "^1.2.2",
+    "pinia": "^2.1.7",
     "vee-validate": "^4.6.10",
     "vue-skeletor": "^1.0.6",
     "vue-toastification": "^2.0.0-rc.5",
     "yup": "^0.32.11"
+  },
+  "overrides": {
+    "vue": "latest"
   }
 }

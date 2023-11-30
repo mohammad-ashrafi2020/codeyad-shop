@@ -1,11 +1,17 @@
 export default defineNuxtConfig({
-  modules: ["@pinia/nuxt", "nuxt-swiper", "@nuxt/image-edge"],
+  modules: ["@pinia/nuxt", "nuxt-swiper","@nuxt/image"],
   // routeRules: {
   //   "/profile": { ssr: false },
   //   "/profile/**": { ssr: false },
   //   "/profile/**/**": { ssr: false },
   // },
-
+  typescript: {
+    tsConfig: {
+      compilerOptions: {
+        verbatimModuleSyntax: false
+      }
+    }
+  },
   css: ["@/assets/css/custom.css", "@/assets/css/theme.css"],
   build: {
     transpile: ["vue-toastification"],

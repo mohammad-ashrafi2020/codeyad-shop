@@ -28,9 +28,12 @@
 import { BannerPosition, HomeDataDto } from "~~/models/home/homeDataDto";
 import { FetchApi } from "~~/utilities/CustomFechApi";
 
+const nuxtApp = useNuxtApp();
 const { data, pending } = useAsyncData(
   "main-page",
-  () => FetchApi<HomeDataDto>("/Utilities/MainPageData")
+  () => FetchApi<HomeDataDto>("/Utilities/MainPageData"), {
+  getCachedData: key => nuxtApp.payload.data[key]
+}
 );
 useHead({
   title: "خانه",
