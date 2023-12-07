@@ -1,5 +1,5 @@
 export default defineNuxtConfig({
-  modules: ["@pinia/nuxt", "nuxt-swiper","@nuxt/image"],
+  modules: ["@pinia/nuxt", "nuxt-swiper","@nuxt/image",'nuxt-schema-org'],
   // routeRules: {
   //   "/profile": { ssr: false },
   //   "/profile/**": { ssr: false },
@@ -32,9 +32,9 @@ export default defineNuxtConfig({
       codeyad: "https://shop-api.codeyad-project.ir",
     },
   },
-  // vite: {
-  //   server: {
-  //     proxy: { "/api": "http://shop-api.codeyad-project.ir/" },
-  //   },
-  // },
+  site: {
+    url: 'http://localhost:3000/',
+    name: 'کدیاد شاپ',
+    defaultLocale:'fa'
+  }
 });

@@ -36,7 +36,9 @@
 </template>
 
 <script setup lang="ts">
+import { GetProductImage } from "~/utilities/ImageUrls";
 import { GetProductBySlug } from "~~/services/product.service";
+import { BASE_DOMAIN_URL, BASE_URL } from "~~/utilities/ApiConfig";
 
 const route = useRoute();
 const { data: result } = await useAsyncData("single_product", () => GetProductBySlug(route.params.slug.toString()));
@@ -49,6 +51,33 @@ onMounted(() => {
         initZoom();
     }, 500);
 })
+var inventories = result.value.data.inventories;
+useSchemaOrg([
+    defineProduct({
+        name: result.value.data.productDto.title,
+        description: result.value.data.productDto.seoData?.metaDescription ?? '',
+        offers: {
+            priceCurrency: "IRR",
+            price: result.value.data.inventories[0]?.price + "0",
+            availability: `https://schema.org/${inventories.length > 0 ? 'InStock' : 'Out of stock'}`
+        },
+        aggregateRating: {
+            reviewCount: result.value.data.commentsCount,
+            ratingValue: result.value.data.rate
+        },
+        sku: result.value.data.productDto.id,
+        mpn: result.value.data.productDto.id,
+        category: `${BASE_DOMAIN_URL}/search/${result.value.data.productDto.category.slug}`,
+        image: GetProductImage(result.value.data.productDto.imageName).replace("codeyad", "https://shop-api.codeyad-project.ir")
+    }),
+    defineBreadcrumb({
+        itemListElement: [
+            { name: 'صفحه اصلی', item: '/' },
+            { name: result.value.data.productDto.category.title, item: '/search/'+result.value.data.productDto.category.slug },
+            { name:  result.value.data.productDto.title},
+        ],
+    })
+]);
 </script>
 
 <style></style>

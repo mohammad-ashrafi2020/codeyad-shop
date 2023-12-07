@@ -9,7 +9,8 @@
     "start": "node .output/server/index.mjs"
   },
   "devDependencies": {
-    "nuxt": "^3.8.2"
+    "nuxt": "^3.8.2",
+    "nuxt-schema-org": "^3.2.1"
   },
   "dependencies": {
     "@nuxt/image": "^1.1.0",

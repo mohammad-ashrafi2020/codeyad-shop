@@ -32,6 +32,22 @@ useHead({
     },
   ],
 });
+useSchemaOrg([
+  defineWebSite({
+    name: "کدیاد شاپ",
+    description: "یشسیشسن نشسی نشسی شسنن شسی",
+    potentialAction: [
+      defineSearchAction({
+        target: '/search/?q={search_term_string}'
+      })
+    ]
+  }),
+  defineOrganization({
+    name: "کدیاد شاپ",
+    logo: '/images/logo.svg',
+  }),
+  defineWebPage()
+])
 </script>
 <style scoped>
 .auth__loading {
